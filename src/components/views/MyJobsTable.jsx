@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Filter, Plus, ChevronDown, Edit, Trash2, Loader2 } from 'lucide-react';
-
-const getStatusClasses = (status) => {
-  switch (status) {
-    case 'Active': return 'bg-green-100 text-green-700';
-    case 'Paused': return 'bg-yellow-100 text-yellow-700';
-    case 'Expired': return 'bg-red-100 text-red-700';
-    default: return 'bg-gray-100 text-gray-700';
-  }
-};
+import { getStatusClasses, getStageClasses } from '../../helpers/utils';
 
 const MobileJobCard = ({ job, setCurrentView }) => (
     <div className="bg-white p-4 rounded-xl shadow-md border border-gray-100 mb-3">

@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Search, Briefcase, ChevronDown, Clock, MessageSquare, Loader2, Star } from 'lucide-react';
+import { getStatusClasses, getStageClasses } from '../../helpers/utils';
 
-// --- Helper Functions (Defined here or imported from a helper file) ---
-const getStageClasses = (stage) => {
-  switch (stage) {
-    case 'New': return 'bg-blue-100 text-blue-700';
-    case 'Screening': return 'bg-yellow-100 text-yellow-700';
-    case 'Interview': return 'bg-purple-100 text-purple-700';
-    case 'Offer': return 'bg-green-100 text-green-700';
-    case 'Rejected': return 'bg-red-100 text-red-700';
-    default: return 'bg-gray-100 text-gray-700';
-  }
-};
 
 // --- Mobile Applicant Card Component ---
 const MobileApplicantCard = ({ applicant }) => (

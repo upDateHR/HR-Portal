@@ -7,10 +7,12 @@ import AnalyticsView from './components/views/AnalyticsView';
 import SettingsView from './components/views/SettingsView';
 import ProfileDetailsView from './components/views/ProfileDetailsView';
 import PostJobForm from './components/views/PostJobForm';
-import { LayoutDashboard, Briefcase, Users, LineChart, Settings } from 'lucide-react'; // CRITICAL: Import navigation icons
+import HomeView from './components/views/HomeView'; // <-- NEW IMPORT
+import { LayoutDashboard, Briefcase, Users, LineChart, Settings, Home } from 'lucide-react'; // <-- ADD Home icon
 
-// --- Navigation Data (Redefined here to fix the import error) ---
+// --- Navigation Data (Updated to include Home first) ---
 const navigation = [
+    { name: 'Home', icon: Home, view: 'home' }, // <-- NEW HOME LINK
     { name: 'Dashboard', icon: LayoutDashboard, view: 'dashboard' },
     { name: 'My Jobs', icon: Briefcase, view: 'myjobs' },
     { name: 'Applicants', icon: Users, view: 'applicants' },
@@ -20,11 +22,13 @@ const navigation = [
 // --- End Navigation Data ---
 
 const App = () => {
-  const [currentView, setCurrentView] = useState('dashboard'); 
+  const [currentView, setCurrentView] = useState('home'); // <-- START ON HOME VIEW
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const renderView = () => {
     switch (currentView) {
+      case 'home': // <-- NEW ROUTE
+        return <HomeView setCurrentView={setCurrentView} />;
       case 'dashboard':
         return <DashboardView setCurrentView={setCurrentView} />;
       case 'myjobs':
@@ -40,7 +44,7 @@ const App = () => {
       case 'profile_details': 
         return <ProfileDetailsView setCurrentView={setCurrentView} />;
       default:
-        return <DashboardView setCurrentView={setCurrentView} />;
+        return <HomeView setCurrentView={setCurrentView} />; // Default to Home
     }
   };
 
@@ -51,7 +55,7 @@ const App = () => {
         currentView={currentView} 
         isProfileMenuOpen={isProfileMenuOpen} 
         setIsProfileMenuOpen={setIsProfileMenuOpen}
-        navigation={navigation} // CRITICAL: PASSING NAVIGATION DATA TO HEADER 
+        navigation={navigation} // Passing navigation data
       />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
