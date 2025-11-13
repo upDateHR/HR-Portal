@@ -1,17 +1,16 @@
-# Frontenpd Part - React + Tailwind
-
-# IamHR Portal 
+# Frontenpd Part - React + Tailwind\
 
 # feature/employer side dashboard branch
 # 1.Clone the repository 
 
-# 2.Bash
+### 2. Setup Commands (Dependencies)
 
---npm install 
---npm install tailwindcss @tailwindcss/vite
+```bash
+# 1. Install all production and feature dependencies (axios, react, etc.)
+npm install
 
-# 3.Bash 
+# 2. Install feature-specific styling and backend dev tools:
+npm install -D tailwindcss @tailwindcss/vite nodemon concurrently lucide-react
 
+# This command starts both your Vite client and your Express server simultaneously.
 npm run dev
-
-
