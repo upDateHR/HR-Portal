@@ -7,8 +7,8 @@
 
 # 2.Bash
 
-npm install 
-npm install tailwindcss @tailwindcss/vite
+--npm install 
+--npm install tailwindcss @tailwindcss/vite
 
 # 3.Bash 
 
