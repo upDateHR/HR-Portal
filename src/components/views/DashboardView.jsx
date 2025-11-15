@@ -1,158 +1,189 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import MetricCard from '../ui/MetricCard';
-import { Star, Loader2, Clock } from 'lucide-react';
-// NOTE: Mock data is no longer imported here
+import React, { useState, useEffect } from "react";
+import MetricCard from "../ui/MetricCard";
+import { Loader2 } from "lucide-react";
+import { getDashboardSummary } from "../../helpers/employerService";
 
-// --- Sub-Components (Helper rendering logic) ---
-
-const JobPostingItem = ({ title, company, info, applicants, newCount }) => (
-    <div className="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
-      <div className="flex justify-between items-start">
-        <div>
-          <h4 className="text-base font-semibold text-gray-800">{title}</h4>
-          <p className="text-sm text-gray-600 font-medium mt-0.5">{company}</p>
-          <p className="text-xs text-gray-500 mt-1">{info}</p>
-        </div>
-        {newCount > 0 && (
-          <span className="inline-flex items-center px-3 py-1 text-xs font-bold rounded-full text-red-700 bg-red-100/70">
-            {newCount} New
-          </span>
-        )}
-      </div>
-      <div className="flex justify-between items-center mt-3">
-        <p className="text-sm font-medium text-gray-600">
-          <span className="font-bold text-gray-900">{applicants}</span> Applicants
-        </p>
-        <button className="text-sm text-purple-600 font-semibold hover:text-purple-800 transition-colors">
-          View Applicants
-        </button>
+// ----------------------------
+// Small Job Card (JobPostingItem)
+// ----------------------------
+const JobPostingItem = ({ job, setCurrentView }) => (
+  // UI REFINEMENT: Increased padding, clear border separation, added smooth hover transition
+  <div className="p-5 border-b border-gray-100 hover:bg-purple-50 transition duration-150 cursor-pointer">
+    <div className="flex justify-between items-start">
+      <div>
+        {/* FONT REVERT: Original font size/weight maintained */}
+        <h4 className="text-base font-semibold text-gray-800">{job.title}</h4>
+        <p className="text-sm text-gray-600 mt-0.5">{job.companyName}</p>
+        <p className="text-xs text-gray-500 mt-1">{job.location}</p>
       </div>
     </div>
-);
 
-const ApplicantItem = ({ name, match, role, exp, skills, time, initials }) => (
-    <div className="p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors">
-      <div className="flex items-start space-x-3">
-        <div className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 font-bold text-sm flex-shrink-0">
-          {initials}
-        </div>
-        <div className="flex-grow">
-          <div className="flex justify-between items-center">
-            <h4 className="text-base font-semibold text-gray-800">{name}</h4>
-            <span className="text-sm font-bold text-green-700 bg-green-100/70 px-3 py-1 rounded-full">{match} Match</span>
-          </div>
-          <p className="text-sm text-gray-600 mt-1">{role}</p>
-          <p className="text-xs text-gray-500">{exp}</p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {skills.map(skill => (
-              <span key={skill} className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full font-medium">
-                {skill}
-              </span>
-            ))}
-          </div>
-          <p className="text-xs text-gray-400 mt-2">Applied {time}</p>
-        </div>
-      </div>
-      <div className="flex justify-end space-x-2 mt-3 pt-3 border-t border-dashed border-gray-200">
-          <button className="text-sm text-red-500 hover:text-red-700">
-              <span className="flex items-center space-x-1"><Star className="h-4 w-4" /> Shortlist</span>
-          </button>
-          <button className="text-sm text-gray-500 hover:text-gray-700">
-              Reject
-          </button>
-      </div>
+    <div className="flex justify-between items-center mt-3">
+      <p className="text-sm text-gray-600">
+        Salary:{" "}
+        <span className="font-semibold text-gray-900">
+          ₹{job.minSalary} – ₹{job.maxSalary}
+        </span>
+      </p>
+
+      {/* BUTTON: Smoother look with better hover state and rounding */}
+      <button
+        onClick={() => setCurrentView({ view: "editjob", id: job._id })}
+        className="text-sm text-purple-600 font-semibold hover:text-purple-800 p-2 rounded-lg transition duration-150 hover:bg-purple-100/70"
+      >
+        View Details
+      </button>
     </div>
+  </div>
 );
-// --- End Sub-Components ---
 
+// ----------------------------
+// Simple Applicant Item (ApplicantItem)
+// ----------------------------
+const ApplicantItem = ({ name, role }) => (
+  // UI REFINEMENT: Increased padding, clear border separation, added smooth hover transition
+  <div className="p-5 border-b border-gray-100 hover:bg-purple-50 transition duration-150 cursor-pointer">
+    <div className="flex justify-between">
+      <div>
+        {/* FONT REVERT: Original font size/weight maintained */}
+        <p className="font-semibold text-gray-900">{name}</p>
+        <p className="text-sm text-gray-500">{role}</p>
+      </div>
+      {/* Small badge for visual interest */}
+      <span className="text-xs text-gray-400 px-2 py-0.5 bg-gray-100 rounded-full shadow-inner">Recently Applied</span>
+    </div>
+  </div>
+);
 
+// ----------------------------
+// MAIN DASHBOARD VIEW
+// ----------------------------
 const DashboardView = ({ setCurrentView }) => {
-    // CRITICAL FIX: Ensure state starts with defined arrays
-    const [dashboardData, setDashboardData] = useState({ metrics: [], postings: [], applicants: [] });
-    const [loading, setLoading] = useState(true);
-    
-    useEffect(() => {
-        const fetchDashboardData = async () => {
-            try {
-                // NOTE: Replace this with the actual backend endpoint
-                const response = await axios.get('/api/dashboard/summary'); 
-                // CRITICAL: Ensure the response data keys match your state keys (metrics, postings, applicants)
-                setDashboardData(response.data);
-            } catch (error) {
-                console.error("Error fetching dashboard data:", error);
-                // Fallback: Keep state as empty array if API fails, allowing the UI to render safely
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchDashboardData();
-    }, []);
+  const [dashboardData, setDashboardData] = useState({
+    metrics: [],
+    postings: [],
+    applicants: [],
+  });
 
-    if (loading) {
-        return <div className="text-center py-20"><Loader2 className="animate-spin h-8 w-8 mx-auto text-purple-600" /> <p className="mt-2 text-gray-500">Loading Dashboard...</p></div>
-    }
+  const [loading, setLoading] = useState(true);
 
+  // Correct recruiter company/title name
+  const user = JSON.parse(localStorage.getItem("hr_user") || "{}");
+  const companyTitle = user.companyName || user.name || "Recruiter";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getDashboardSummary();
+
+        setDashboardData({
+          metrics: data.metrics || [],
+          postings: data.postings || [],
+          applicants: data.applicants || [],
+        });
+      } catch (err) {
+        console.error("Error loading dashboard:", err);
+        setDashboardData({ metrics: [], postings: [], applicants: [] });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
     return (
-        <>
-            <h1 className="text-3xl font-bold text-gray-900">Welcome back, Acme Corp!</h1>
-            <p className="mt-1 text-lg text-gray-600">Here's what's happening with your recruitment today.</p>
+      <div className="text-center py-20">
+        {/* UI REFINEMENT: Consistent loading spinner style */}
+        <Loader2 className="animate-spin h-8 w-8 text-purple-600 mx-auto" />
+        <p className="mt-2 text-gray-600 font-medium">Loading dashboard...</p>
+      </div>
+    );
+  }
 
-            {/* Metrics Mapping (CRASH FIX APPLIED) */}
-            <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {dashboardData.metrics && dashboardData.metrics.map((metric, index) => (
-                <MetricCard key={index} {...metric} />
+  return (
+    <>
+      {/* FONT REVERT: Original font size/weight maintained */}
+      <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+        Welcome back, {companyTitle}!
+      </h1>
+      <p className="mt-1 text-lg text-gray-600">
+        Here's an overview of your hiring activity.
+      </p>
+
+      {/* Metrics */}
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {dashboardData.metrics.map((metric, i) => (
+          <MetricCard key={i} {...metric} />
+        ))}
+      </div>
+
+      {/* Main Content Blocks */}
+      <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* Job Posts Block */}
+        {/* UI REFINEMENT: Consistent card style (rounded-xl, shadow-xl) */}
+        <div className="lg:col-span-2 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+          <div className="flex justify-between items-center p-5 border-b border-gray-100">
+            {/* FONT REVERT: Original font size/weight maintained */}
+            <h2 className="text-xl font-semibold text-gray-900">Recent Job Posts</h2>
+            {/* BUTTON: Smoother look with better hover state and rounding */}
+            <button
+              onClick={() => setCurrentView("myjobs")}
+              className="text-sm text-purple-600 font-medium hover:text-purple-800 p-2 rounded-lg transition duration-150 hover:bg-purple-100/70"
+            >
+              View All
+            </button>
+          </div>
+
+          {dashboardData.postings.length > 0 ? (
+            // Removed unnecessary divide-y class from the list wrapper since items handle the border
+            <div> 
+              {dashboardData.postings.map((job, i) => (
+                <JobPostingItem
+                  key={job._id || i}
+                  job={job}
+                  setCurrentView={setCurrentView}
+                />
               ))}
             </div>
+          ) : (
+            <p className="p-6 text-gray-500 text-center text-base font-medium">
+              No job postings yet. Start by posting your first job!
+            </p>
+          )}
+        </div>
 
-            <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-              
-              <div className="lg:col-span-2 bg-white rounded-xl shadow-lg border border-gray-100">
-                <div className="flex justify-between items-center p-5 border-b border-gray-100">
-                  <h2 className="text-xl font-semibold text-gray-900">Active Job Postings</h2>
-                  <button 
-                    onClick={() => setCurrentView('myjobs')}
-                    className="text-sm text-purple-600 font-medium hover:text-purple-800"
-                  >
-                    View All
-                  </button>
-                </div>
-                
-                {/* Postings Mapping (CRASH FIX APPLIED) */}
-                <div className="divide-y divide-gray-100">
-                  {dashboardData.postings && dashboardData.postings.map((job, index) => (
-                    <JobPostingItem key={index} {...job} info={`Recruitment • ${job.response} response time`} /> 
-                  ))}
-                </div>
-                
-                <div className="p-4 text-center">
-                    <button className="text-sm text-gray-500 hover:text-gray-700 font-medium">Load More Postings</button>
-                </div>
+        {/* Applicants Block */}
+        {/* UI REFINEMENT: Consistent card style (rounded-xl, shadow-xl) */}
+        <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+          <div className="flex justify-between items-center p-5 border-b border-gray-100">
+            {/* FONT REVERT: Original font size/weight maintained */}
+            <h2 className="text-xl font-semibold text-gray-900">Recent Applicants</h2>
+            {/* BUTTON: Smoother look with better hover state and rounding */}
+            <button
+              onClick={() => setCurrentView("applicants")}
+              className="text-sm text-purple-600 font-medium hover:text-purple-800 p-2 rounded-lg transition duration-150 hover:bg-purple-100/70"
+            >
+              View All
+            </button>
+          </div>
 
-              </div>
-
-              <div className="lg:col-span-1 bg-white rounded-xl shadow-lg border border-gray-100">
-                <div className="flex justify-between items-center p-5 border-b border-gray-100">
-                  <h2 className="text-xl font-semibold text-gray-900">Recent Applicants</h2>
-                  <button 
-                    onClick={() => setCurrentView('applicants')}
-                    className="text-sm text-purple-600 font-medium hover:text-purple-800"
-                  >
-                    View All
-                  </button>
-                </div>
-                
-                {/* Applicants Mapping (CRASH FIX APPLIED) */}
-                <div className="divide-y divide-gray-100">
-                  {dashboardData.applicants && dashboardData.applicants.map((applicant, index) => (
-                    <ApplicantItem key={index} {...applicant} />
-                  ))}
-                </div>
-
-              </div>
+          {dashboardData.applicants.length > 0 ? (
+            // Removed unnecessary divide-y class from the list wrapper
+            <div> 
+              {dashboardData.applicants.map((a, i) => (
+                <ApplicantItem key={i} {...a} />
+              ))}
             </div>
-        </>
-    );
+          ) : (
+            <p className="p-6 text-gray-500 text-center text-base font-medium">No applicants yet.</p>
+          )}
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default DashboardView;

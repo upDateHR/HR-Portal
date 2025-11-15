@@ -1,70 +1,157 @@
-import React, { useState } from 'react';
-import Header from './components/navigation/Header';
-import DashboardView from './components/views/DashboardView';
-import MyJobsTable from './components/views/MyJobsTable';
-import ApplicantsView from './components/views/ApplicantsView';
-import AnalyticsView from './components/views/AnalyticsView';
-import SettingsView from './components/views/SettingsView';
-import ProfileDetailsView from './components/views/ProfileDetailsView';
-import PostJobForm from './components/views/PostJobForm';
-import HomeView from './components/views/HomeView'; // <-- NEW IMPORT
-import { LayoutDashboard, Briefcase, Users, LineChart, Settings, Home } from 'lucide-react'; // <-- ADD Home icon
+import React, { useEffect, useState } from "react";
 
-// --- Navigation Data (Updated to include Home first) ---
+import Header from "./components/navigation/Header";
+import DashboardView from "./components/views/DashboardView";
+import MyJobsTable from "./components/views/MyJobsTable";
+import ApplicantsView from "./components/views/ApplicantsView";
+import AnalyticsView from "./components/views/AnalyticsView";
+import SettingsView from "./components/views/SettingsView";
+import ProfileDetailsView from "./components/views/ProfileDetailsView";
+import PostJobForm from "./components/views/PostJobForm";
+import HomeView from "./components/views/HomeView";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import EditJobForm from "./components/views/EditJobForm";   // ✅ Added
+
+import {
+  LayoutDashboard,
+  Briefcase,
+  Users,
+  LineChart,
+  Settings,
+  Home
+} from "lucide-react";
+
+// NAVIGATION MENU
 const navigation = [
-    { name: 'Home', icon: Home, view: 'home' }, // <-- NEW HOME LINK
-    { name: 'Dashboard', icon: LayoutDashboard, view: 'dashboard' },
-    { name: 'My Jobs', icon: Briefcase, view: 'myjobs' },
-    { name: 'Applicants', icon: Users, view: 'applicants' },
-    { name: 'Analytics', icon: LineChart, view: 'analytics' },
-    { name: 'Settings', icon: Settings, view: 'settings' },
+  { name: "Home", icon: Home, view: "home" },
+  { name: "Dashboard", icon: LayoutDashboard, view: "dashboard" },
+  { name: "My Jobs", icon: Briefcase, view: "myjobs" },
+  { name: "Applicants", icon: Users, view: "applicants" },
+  { name: "Analytics", icon: LineChart, view: "analytics" },
+  { name: "Settings", icon: Settings, view: "settings" }
 ];
-// --- End Navigation Data ---
 
 const App = () => {
-  const [currentView, setCurrentView] = useState('home'); // <-- START ON HOME VIEW
+  const [currentView, setCurrentView] = useState("login");
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
+  // Load token
+  const [token, setToken] = useState(() => {
+    try {
+      return localStorage.getItem("hr_token");
+    } catch {
+      return null;
+    }
+  });
+
+  const setAuthToken = (newToken) => {
+    try {
+      if (newToken) localStorage.setItem("hr_token", newToken);
+      else localStorage.removeItem("hr_token");
+    } catch {}
+
+    setToken(newToken);
+  };
+
+  // Sync token between tabs
+  useEffect(() => {
+    const onStorage = (e) => {
+      if (e.key === "hr_token") setToken(e.newValue);
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  // -------------------------------
+  // RENDER VIEW SWITCHER
+  // -------------------------------
   const renderView = () => {
-    switch (currentView) {
-      case 'home': // <-- NEW ROUTE
-        return <HomeView setCurrentView={setCurrentView} />;
-      case 'dashboard':
-        return <DashboardView setCurrentView={setCurrentView} />;
-      case 'myjobs':
-        return <MyJobsTable setCurrentView={setCurrentView} />;
-      case 'postjob':
-        return <PostJobForm setCurrentView={setCurrentView} />;
-      case 'applicants': 
-        return <ApplicantsView />;
-      case 'analytics':
-        return <AnalyticsView />;
-      case 'settings':
-        return <SettingsView />;
-      case 'profile_details': 
-        return <ProfileDetailsView setCurrentView={setCurrentView} />;
+    // If NOT logged in → show login/register
+    if (!token) {
+      if (currentView === "register") {
+        return (
+          <Register
+            setCurrentView={setCurrentView}
+            setAuthToken={setAuthToken}
+          />
+        );
+      }
+      return <Login setCurrentView={setCurrentView} setAuthToken={setAuthToken} />;
+    }
+
+    // If logged in → show main pages
+    const viewName = currentView.view || currentView;
+
+    
+
+    switch (viewName) {
+      case "home":
+        return <HomeView setCurrentView={setCurrentView} token={token} />;
+
+      case "dashboard":
+        return <DashboardView setCurrentView={setCurrentView} token={token} />;
+
+      case "myjobs":
+        return <MyJobsTable setCurrentView={setCurrentView} token={token} />;
+
+      case "postjob":
+        return <PostJobForm setCurrentView={setCurrentView} token={token} />;
+
+      case "editjob":
+        return (
+          <EditJobForm
+            jobId={currentView.id}
+            setCurrentView={setCurrentView}
+            token={token}
+          />
+        );
+
+      case "applicants":
+        return <ApplicantsView token={token} />;
+
+      case "analytics":
+        return <AnalyticsView token={token} />;
+
+      case "settings":
+        return <SettingsView token={token} />;
+
+      case "profile_details":
+        return <ProfileDetailsView setCurrentView={setCurrentView} token={token} />;
+
+        
+
       default:
-        return <HomeView setCurrentView={setCurrentView} />; // Default to Home
+        return <HomeView setCurrentView={setCurrentView} token={token} />;
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <Header 
-        setCurrentView={setCurrentView} 
-        currentView={currentView} 
-        isProfileMenuOpen={isProfileMenuOpen} 
-        setIsProfileMenuOpen={setIsProfileMenuOpen}
-        navigation={navigation} // Passing navigation data
-      />
-      
+
+      {/* HEADER ONLY WHEN LOGGED IN */}
+      {token && (
+        <Header
+          setCurrentView={setCurrentView}
+          currentView={currentView}
+          isProfileMenuOpen={isProfileMenuOpen}
+          setIsProfileMenuOpen={setIsProfileMenuOpen}
+          navigation={navigation}
+          setAuthToken={setAuthToken}
+        />
+      )}
+
+      {/* PAGE CONTENT */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {renderView()}
       </main>
-      
-      <footer className="mt-16 text-center text-xs text-gray-400 p-4 border-t border-gray-100">
+
+      {/* FOOTER */}
+      {token && (
+        <footer className="mt-16 text-center text-xs text-gray-400 p-4 border-t border-gray-100">
           © {new Date().getFullYear()} I am HR Portal. All rights reserved.
-      </footer>
+        </footer>
+      )}
     </div>
   );
 };
