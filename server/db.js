@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = 'mongodb+srv://ppagar602_db_user:Pranat20@hr-portaldata.bfhuunz.mongodb.net/hrportal?retryWrites=true&w=majority&appName=HR-PortalData';
+const MONGO_URI = 'put_your_mongo_url';
 
 const connectDB = async () => {
     try {
