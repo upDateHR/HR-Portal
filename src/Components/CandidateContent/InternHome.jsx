@@ -15,7 +15,7 @@ export default function InternHome() {
               </h1>
 
               <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl">
-                25k+ Internships for freshers, students & graduates!
+                35k+ Internships for freshers, students & graduates!
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">

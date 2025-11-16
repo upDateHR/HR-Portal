@@ -1,9 +1,10 @@
 # Frontenpd Part - React + Tailwind
 # IamHR Portal 
 
-# I Created a Signin, Signup Page
+# Signin, Signup Page is Completed
 
-I'm working candidate, Recruiter Page
+# Main Homepage, Candidate Homepage is Completed
 
+# Internship Page, Job Page is Completed
 
 
