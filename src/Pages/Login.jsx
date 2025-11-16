@@ -122,7 +122,7 @@ export default function Login() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? "Signing in…" : "Log in"}
+              {loading ? "Signing in…" : "Sign in"}
             </button>
           </form>
 

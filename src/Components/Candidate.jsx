@@ -92,6 +92,7 @@ export default function Candidate() {
   return (
     <div className="signup-container">
       <div className="signup-card">
+
         {/* Left (same look) */}
         <div className="signup-left">
           <div className="left-gradient" />

@@ -1,18 +1,16 @@
 import React from "react";
+import JobHome from "../Components/CandidateContent/JobHome";
 import Navbar from "../Components/Navbar";
-
 import Footer from "../Components/Footer";
-import CandidateHome from "../Components/CandidateContent/CandidateHome";
 
-const CandidatePage = () => {
+const JobPage = () => {
   return (
     <>
       <Navbar />
-      <CandidateHome />
-
+      <JobHome />
       <Footer />
     </>
   );
 };
 
-export default CandidatePage;
+export default JobPage;
