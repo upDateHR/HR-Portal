@@ -1,17 +1,45 @@
 // src/helpers/api.js
-import axios from "axios";
+// This file replaces all axios + backend calls
+// Everything will now happen using Firebase Auth + Firestore
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api",
-});
+import { auth, db } from "../firebase";
 
-// This sends the JWT token with every request
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Firebase Firestore methods
+import {
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  collection,
+  addDoc,
+  query,
+  where,
+} from "firebase/firestore";
 
-export default API;
+// ===========================
+// USER HELPERS (firestore)
+// ===========================
+
+// Save user in Firestore
+export const saveUserToFirestore = async (uid, data) => {
+  await setDoc(doc(db, "users", uid), data, { merge: true });
+};
+
+// Get user from Firestore
+export const getUserFromFirestore = async (uid) => {
+  const snap = await getDoc(doc(db, "users", uid));
+  return snap.exists() ? snap.data() : null;
+};
+
+// ===========================
+// JOB HELPERS (to be added later)
+// We will create full functions after migrating user auth
+// ===========================
+
+// Example placeholder:
+// export const createJobPosting = async (data) => {
+//   return await addDoc(collection(db, "jobs"), data);
+// };
+

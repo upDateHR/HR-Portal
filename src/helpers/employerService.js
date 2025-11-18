@@ -1,179 +1,184 @@
-// SIMPLE clean axios wrapper for backend calls
-import axios from "axios";
+// FIREBASE JOB SERVICE (replaces MongoDB backend)
+import {
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  serverTimestamp,
+  limit,
+  orderBy
+} from "firebase/firestore";
 
-const API_URL = "http://localhost:3001/api";
+import { db, auth } from "../firebase";
 
-// ==============================
-// AUTH — LOGIN
-// ==============================
-export const loginRecruiter = async (data) => {
-  const res = await axios.post(`${API_URL}/auth/login`, data);
-
-  const user = res.data.user; // backend returns user object
-
-  localStorage.setItem("hr_token", res.data.token);
-  localStorage.setItem("hr_user", JSON.stringify(user));
-
-  return res.data;
+// ===============================================
+// GET CURRENT LOGGED IN USER
+// ===============================================
+const getCurrentUID = () => {
+  const user = auth.currentUser;
+  if (!user) throw new Error("Not authenticated");
+  return user.uid;
 };
 
-
-// ==============================
-// AUTH — REGISTER
-// ==============================
-export const registerRecruiter = async (data) => {
-  const res = await axios.post(`${API_URL}/auth/register`, data);
-
-  const user = res.data.user;
-
-  localStorage.setItem("hr_token", res.data.token);
-  localStorage.setItem("hr_user", JSON.stringify(user));
-
-  return res.data;
-};
-
-
-// ==============================
-// Dashboard Summary
-// ==============================
-export const getDashboardSummary = async () => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.get(`${API_URL}/employer/dashboard/summary`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// My Jobs
-// ==============================
-export const getMyJobs = async () => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.get(`${API_URL}/employer/jobs`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// Create Job
-// ==============================
+// ===============================================
+// CREATE JOB POST
+// ===============================================
 export const createJobPosting = async (data) => {
-  const token = localStorage.getItem("hr_token");
+  const recruiterId = getCurrentUID();
 
-  const res = await axios.post(`${API_URL}/employer/jobs/create`, data, {
-    headers: { Authorization: `Bearer ${token}` },
+  const jobRef = await addDoc(collection(db, "jobs"), {
+    ...data,
+    recruiterId,
+    status: "Active",
+    applicants: [],
+    createdAt: serverTimestamp(),
   });
 
-  return res.data;
+  return { id: jobRef.id };
 };
 
-// ==============================
-// Get Job by ID
-// ==============================
-export const getJobById = async (id) => {
-  const token = localStorage.getItem("hr_token");
+// ===============================================
+// FETCH JOBS FOR LOGGED-IN RECRUITER
+// ===============================================
+export const getMyJobs = async () => {
+  const recruiterId = getCurrentUID();
 
-  const res = await axios.get(`${API_URL}/employer/jobs/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// Update Job
-// ==============================
-export const updateJob = async (id, data) => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.put(`${API_URL}/employer/jobs/${id}`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// Update Job Status
-// ==============================
-export const updateJobStatus = async (id, status) => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.put(
-    `${API_URL}/employer/jobs/status/${id}`,
-    { status },
-    { headers: { Authorization: `Bearer ${token}` } }
+  const q = query(
+    collection(db, "jobs"),
+    where("recruiterId", "==", recruiterId)
   );
 
-  return res.data;
+  const snap = await getDocs(q);
+
+  return snap.docs.map((d) => ({
+    _id: d.id,
+    ...d.data(),
+  }));
 };
 
-// ==============================
-// Delete Job
-// ==============================
+// ===============================================
+// GET JOB BY ID
+// ===============================================
+export const getJobById = async (id) => {
+  const ref = doc(db, "jobs", id);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) throw new Error("Job not found");
+
+  return { id: snap.id, ...snap.data() };
+};
+
+// ===============================================
+// UPDATE JOB
+// ===============================================
+export const updateJob = async (id, data) => {
+  const ref = doc(db, "jobs", id);
+  await updateDoc(ref, data);
+  return true;
+};
+
+// ===============================================
+// UPDATE JOB STATUS
+// ===============================================
+export const updateJobStatus = async (id, newStatus) => {
+  const ref = doc(db, "jobs", id);
+  await updateDoc(ref, { status: newStatus });
+  return true;
+};
+
+// ===============================================
+// DELETE JOB
+// ===============================================
 export const deleteJob = async (id) => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.delete(`${API_URL}/employer/jobs/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
+  const ref = doc(db, "jobs", id);
+  await deleteDoc(ref);
+  return true;
 };
 
-// ==============================
-// SETTINGS — Initial Load
-// ==============================
-export const getInitialSettings = async () => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.get(`${API_URL}/employer/settings/initial`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// UPDATE PROFILE (with password)
-// ==============================
-export const updateProfile = async (data) => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.post(`${API_URL}/employer/settings/profile`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// UPDATE COMPANY
-// ==============================
-export const updateCompany = async (data) => {
-  const token = localStorage.getItem("hr_token");
-
-  const res = await axios.post(`${API_URL}/employer/settings/company`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return res.data;
-};
-
-// ==============================
-// Applicants
-// ==============================
+// ===============================================
+// GET APPLICANTS (CORRECTED → USE "applications")
+// ===============================================
 export const getApplicants = async () => {
-  const token = localStorage.getItem("hr_token");
+  const recruiterId = getCurrentUID();
 
-  const res = await axios.get(`${API_URL}/applicants`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const q = query(
+    collection(db, "applications"),
+    where("recruiterId", "==", recruiterId)
+  );
 
-  return res.data;
+  const snap = await getDocs(q);
+
+  return snap.docs.map((d) => ({
+    _id: d.id,
+    ...d.data(),
+  }));
 };
+
+
+// ===============================================
+// DASHBOARD SUMMARY (NEW)
+// ===============================================
+export const getDashboardSummary = async () => {
+  const recruiterId = getCurrentUID();
+
+  // JOB COUNT
+  const jobsSnap = await getDocs(
+    query(collection(db, "jobs"), where("recruiterId", "==", recruiterId))
+  );
+  const jobs = jobsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+
+  // APPLICANTS COUNT
+  const appsSnap = await getDocs(
+    query(collection(db, "applications"), where("recruiterId", "==", recruiterId))
+  );
+  const applicants = appsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+
+  // RECENT JOBS (limit 3)
+  const recentJobsSnap = await getDocs(
+    query(
+      collection(db, "jobs"),
+      where("recruiterId", "==", recruiterId),
+      orderBy("createdAt", "desc"),
+      limit(3)
+    )
+  );
+
+  const recentJobs = recentJobsSnap.docs.map((d) => ({
+    _id: d.id,
+    ...d.data(),
+  }));
+
+  // RECENT APPLICANTS (limit 3)
+  const recentAppsSnap = await getDocs(
+    query(
+      collection(db, "applications"),
+      where("recruiterId", "==", recruiterId),
+      orderBy("appliedAt", "desc"),
+      limit(3)
+    )
+  );
+
+  const recentApplicants = recentAppsSnap.docs.map((d) => ({
+    name: d.data().candidateName,
+    role: d.data().jobTitle,
+  }));
+
+  return {
+    metrics: [
+      { label: "Total Jobs", value: jobs.length },
+      { label: "Total Applicants", value: applicants.length },
+      { label: "Active Jobs", value: jobs.filter((j) => j.status === "Active").length },
+      { label: "Closed Jobs", value: jobs.filter((j) => j.status === "Closed").length },
+    ],
+    postings: recentJobs,
+    applicants: recentApplicants,
+  };
+};
+
+
+

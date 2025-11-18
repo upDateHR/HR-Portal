@@ -1,8 +1,18 @@
 import React, { useState } from "react";
-import { Lock } from "lucide-react";
-import { updateProfile } from "../../../helpers/employerService";
+import { Loader2, Lock, Save } from "lucide-react"; // Added Save icon
+
+// Firebase - NO CHANGE
+import { auth, db } from "../../../firebase";
+import {
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 
 const ProfileSettings = ({ initialData }) => {
+  const user = auth.currentUser;
+
+  // --- State and Handlers (NO CHANGE TO LOGIC) ---
   const [form, setForm] = useState({
     name: initialData?.name || "",
     email: initialData?.email || "",
@@ -14,6 +24,8 @@ const ProfileSettings = ({ initialData }) => {
     currentPwd: "",
     newPwd: "",
   });
+  
+  const [isSaving, setIsSaving] = useState(false); // Added saving state for button feedback
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.id]: e.target.value });
@@ -21,88 +33,112 @@ const ProfileSettings = ({ initialData }) => {
   const handlePasswordChange = (e) =>
     setPasswordForm({ ...passwordForm, [e.target.id]: e.target.value });
 
+  // ===========================
+  // SAVE PROFILE (FIREBASE) - NO CHANGE TO LOGIC
+  // ===========================
   const handleSave = async () => {
+    setIsSaving(true);
     try {
-      const payload = {
+      // UPDATE FIRESTORE PROFILE
+      const ref = doc(db, "users", user.uid);
+
+      await updateDoc(ref, {
         name: form.name,
         phone: form.phone,
-        role: form.role || "HR Manager",
-      };
+        role: form.role,
+      });
 
-      if (passwordForm.currentPwd.trim() && passwordForm.newPwd.trim()) {
-        payload.currentPassword = passwordForm.currentPwd;
-        payload.newPassword = passwordForm.newPwd;
+      // OPTIONAL: CHANGE PASSWORD
+      if (passwordForm.currentPwd && passwordForm.newPwd) {
+        const credential = EmailAuthProvider.credential(
+          user.email,
+          passwordForm.currentPwd
+        );
+
+        // Re-authenticate user
+        await reauthenticateWithCredential(user, credential);
+
+        // Update password
+        await updatePassword(user, passwordForm.newPwd);
       }
-      const res = await updateProfile(payload);
-      console.log(res.message || "Profile updated successfully!");
+
+      alert("Profile updated successfully!");
+
       setPasswordForm({ currentPwd: "", newPwd: "" });
+
     } catch (err) {
       console.error("Profile update failed:", err);
-      console.log(err.response?.data?.message || "Failed to update profile.");
+      alert(err.message || "Failed to update profile. Check console for details.");
+    } finally {
+        setIsSaving(false);
     }
   };
 
   return (
-    // UI REFINEMENT: Increased space-y for better vertical separation
-    <div className="space-y-10">
-      
-      {/* --- Personal Information Section --- */}
-      {/* UI REFINEMENT: Clean card block with shadow/border/rounded-xl */}
-      <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100 space-y-6">
-        {/* FONT REVERT: Original font size/weight maintained */}
-        <h2 className="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-3">
-            Personal Details
+    <div className="space-y-6">
+
+      {/* --- Personal Info Card --- */}
+      <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100 space-y-4">
+        <h2 className="text-xl font-semibold text-gray-900 pb-3 border-b border-gray-100">
+          Personal Details
         </h2>
 
-        {/* UI REFINEMENT: Increased gap for better column separation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Form Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
           {["name", "phone", "role"].map((field) => (
             <div key={field}>
-              <label className="block text-sm font-medium text-gray-700 capitalize mb-1">
+              <label 
+                htmlFor={field} 
+                className="block text-sm font-medium text-gray-700 capitalize mb-1"
+              >
                 {field}
               </label>
               <input
                 id={field}
                 value={form[field]}
                 onChange={handleChange}
-                // UI REFINEMENT: Smoother input style (py-2.5, transition/focus ring)
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+                // 💥 PROFESSIONAL INPUT FIELD STYLE 💥
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
                 placeholder={`Enter your ${field}`}
+                type={field === 'phone' ? 'tel' : 'text'}
               />
             </div>
           ))}
 
-          {/* Email - Read Only */}
+          {/* Email (Locked Field) */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label 
+              htmlFor="email" 
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email (locked)
             </label>
             <div className="relative">
-                <input
-                    id="email"
-                    value={form.email}
-                    disabled
-                    // UI REFINEMENT: Better disabled style with lock icon
-                    className="w-full px-4 py-2.5 border border-gray-200 bg-gray-50 text-gray-500 rounded-lg cursor-not-allowed shadow-inner pr-10"
-                />
-                <Lock className="h-5 w-5 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
+              <input
+                id="email"
+                value={form.email}
+                disabled
+                // 💥 PROFESSIONAL INPUT FIELD STYLE 💥
+                className="w-full px-3 py-2 border border-gray-200 bg-gray-50 text-gray-500 rounded-md cursor-not-allowed shadow-inner pr-8 text-sm"
+              />
+              <Lock className="h-4 w-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* --- Password Section --- */}
-      {/* UI REFINEMENT: Clean card block with shadow/border/rounded-xl */}
-      <div className="p-6 bg-white rounded-xl shadow-lg border border-gray-100 space-y-6">
-        {/* FONT REVERT: Original font size/weight maintained */}
-        <h3 className="flex items-center text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-3">
-          <Lock className="h-5 w-5 mr-3 text-purple-600" /> Change Password
+      {/* --- Password Section Card --- */}
+      <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100 space-y-4">
+        <h3 className="flex items-center text-xl font-semibold text-gray-900 pb-3 border-b border-gray-100">
+          <Lock className="h-5 w-5 mr-2 text-purple-600" /> Change Password
         </h3>
 
-        {/* UI REFINEMENT: Increased gap for better column separation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label 
+              htmlFor="currentPwd" 
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Current Password
             </label>
             <input
@@ -110,14 +146,17 @@ const ProfileSettings = ({ initialData }) => {
               type="password"
               value={passwordForm.currentPwd}
               onChange={handlePasswordChange}
-              // UI REFINEMENT: Smoother input style (py-2.5, transition/focus ring)
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+              // 💥 PROFESSIONAL INPUT FIELD STYLE 💥
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-150 text-sm"
               placeholder="••••••••"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label 
+              htmlFor="newPwd" 
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               New Password
             </label>
             <input
@@ -125,8 +164,8 @@ const ProfileSettings = ({ initialData }) => {
               type="password"
               value={passwordForm.newPwd}
               onChange={handlePasswordChange}
-              // UI REFINEMENT: Smoother input style (py-2.5, transition/focus ring)
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+              // 💥 PROFESSIONAL INPUT FIELD STYLE 💥
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-150 text-sm"
               placeholder="••••••••"
             />
           </div>
@@ -137,10 +176,24 @@ const ProfileSettings = ({ initialData }) => {
       <div className="flex justify-end pt-4">
         <button
           onClick={handleSave}
-          // BUTTON: Rounded-full design (original), added hover/transition, and light elevation
-          className="px-6 py-2 bg-purple-600 text-white rounded-full shadow-md hover:bg-purple-700 hover:shadow-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          disabled={isSaving}
+          className={`px-6 py-2 rounded-md shadow-lg flex items-center space-x-2 font-medium transition duration-150 ${
+            isSaving
+              ? "bg-purple-400 cursor-not-allowed"
+              : "bg-purple-600 text-white hover:bg-purple-700"
+          }`}
         >
-          Save Profile Changes
+          {isSaving ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span>Saving...</span>
+            </>
+          ) : (
+            <>
+              <Save className="h-4 w-4" />
+              <span>Save Profile Changes</span>
+            </>
+          )}
         </button>
       </div>
     </div>

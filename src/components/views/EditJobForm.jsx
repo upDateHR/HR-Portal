@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getJobById, updateJob } from "../../helpers/employerService";
-import { Loader2 } from "lucide-react";
+import { Loader2, Save, ArrowLeft } from "lucide-react"; // Added Save and ArrowLeft icons
 
 const EditJobForm = ({ jobId, setCurrentView }) => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false); // Added for professional UX feedback
 
+  // --- Data Loading Logic (NO CHANGE) ---
   useEffect(() => {
     const load = async () => {
       try {
@@ -20,164 +22,210 @@ const EditJobForm = ({ jobId, setCurrentView }) => {
     load();
   }, [jobId]);
 
+  // --- Loading State (PURPLE Theme) ---
   if (loading || !job) {
     return (
-      <div className="text-center py-20">
-        {/* UI REFINEMENT: Consistent loading spinner style */}
-        <Loader2 className="animate-spin h-8 w-8 mx-auto text-purple-600" />
-        <p className="mt-2 text-gray-600 font-medium">Loading job...</p>
+      <div className="flex items-center justify-center h-96">
+        <div className="text-center">
+          <Loader2 className="animate-spin h-8 w-8 mx-auto text-purple-600" />
+          <p className="mt-4 text-gray-600 font-medium">Loading job details...</p>
+        </div>
       </div>
     );
   }
 
+  // --- Handlers (NO CHANGE TO FUNCTIONALITY) ---
   const handleChange = (e) => {
     setJob({ ...job, [e.target.name]: e.target.value });
   };
 
   const handleSave = async () => {
+    setIsSaving(true);
     try {
       await updateJob(jobId, job);
-      // UI REFINEMENT: Reverting alert to console.log/message system
+      // Retaining original log/view change logic
       console.log("Job updated successfully!");
       setCurrentView("myjobs");
     } catch (err) {
       console.error("Update failed:", err);
-      // UI REFINEMENT: Reverting alert to console.log/message system
       console.log("Error saving changes");
+    } finally {
+      setIsSaving(false);
     }
   };
+  
+  // --- New Back Button Handler ---
+  const handleGoBack = () => {
+    setCurrentView("dashboard");
+  };
 
+  // --- Main Render ---
   return (
-    <div className="max-w-4xl mx-auto py-8">
-      {/* FONT REVERT: Original font size/weight maintained */}
-      <h1 className="text-3xl font-bold text-gray-900 mb-6 tracking-tight">Edit Job Posting</h1>
-
-      {/* MAIN BLOCK: Consistent card block, shadow-xl, p-8, rounded-2xl */}
-      <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 space-y-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+      {/* Header with Back Button */}
+      <header className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Edit Job Posting</h1>
+          <p className="text-base text-gray-600 mt-1">Review and modify the details of your active job listing.</p>
+        </div>
         
-        {/* Job Details Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-            
-            {/* Title */}
-            <div>
-              <label className="block text-sm text-gray-700 font-medium mb-1">
-                Job Title
-              </label>
-              <input
-                name="title"
-                value={job.title}
-                onChange={handleChange}
-                // UI REFINEMENT: Smoother input style (py-2.5, rounded-lg, transition/focus ring)
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
-                placeholder="e.g., Senior Software Engineer"
-              />
-            </div>
+        {/* Go Back Button (NEW) */}
+        <button
+          onClick={handleGoBack}
+          className="flex items-center space-x-1 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition duration-150 shadow-sm"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Listings</span>
+        </button>
+      </header>
 
-            {/* Company Name (Read-only suggestion for professionalism) */}
-            <div>
-              <label className="block text-sm text-gray-700 font-medium mb-1">
-                Company Name
-              </label>
-              <input
-                name="companyName"
-                value={job.companyName}
-                onChange={handleChange}
-                // UI REFINEMENT: Smoother input style
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
-                placeholder="e.g., Tech Corp"
-              />
-            </div>
+      {/* MAIN FORM BLOCK: Elegant card style */}
+      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 space-y-6">
+        
+        {/* Job Details Section (Compact Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+          
+          {/* Title */}
+          <div>
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="title">
+              Job Title
+            </label>
+            <input
+              name="title"
+              id="title"
+              value={job.title}
+              onChange={handleChange}
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
+              placeholder="e.g., Senior Software Engineer"
+            />
+          </div>
 
-            {/* Department */}
-            <div>
-              <label className="block text-sm text-gray-700 font-medium mb-1">
-                Department
-              </label>
-              <input
-                name="department"
-                value={job.department}
-                onChange={handleChange}
-                // UI REFINEMENT: Smoother input style
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
-                placeholder="e.g., Engineering"
-              />
-            </div>
+          {/* Company Name */}
+          <div>
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="companyName">
+              Company Name
+            </label>
+            <input
+              name="companyName"
+              id="companyName"
+              value={job.companyName}
+              onChange={handleChange}
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
+              placeholder="e.g., Tech Corp"
+            />
+          </div>
 
-            {/* Location */}
-            <div>
-              <label className="block text-sm text-gray-700 font-medium mb-1">
-                Location
-              </label>
-              <input
-                name="location"
-                value={job.location}
-                onChange={handleChange}
-                // UI REFINEMENT: Smoother input style
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
-                placeholder="e.g., Bangalore, IN (Remote)"
-              />
-            </div>
+          {/* Department */}
+          <div>
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="department">
+              Department
+            </label>
+            <input
+              name="department"
+              id="department"
+              value={job.department}
+              onChange={handleChange}
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
+              placeholder="e.g., Engineering"
+            />
+          </div>
+
+          {/* Location */}
+          <div>
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="location">
+              Location
+            </label>
+            <input
+              name="location"
+              id="location"
+              value={job.location}
+              onChange={handleChange}
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
+              placeholder="e.g., Bangalore, IN (Remote)"
+            />
+          </div>
         </div>
 
-        {/* Salary Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Salary Section (Separated by border) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4 border-t border-gray-100">
           {/* Min Salary */}
           <div>
-            <label className="block text-sm text-gray-700 font-medium mb-1">
-              Minimum Salary
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="minSalary">
+              Minimum Salary (in ₹)
             </label>
             <input
               type="number"
               name="minSalary"
+              id="minSalary"
               value={job.minSalary}
               onChange={handleChange}
-              // UI REFINEMENT: Smoother input style
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
               placeholder="e.g., 50000"
             />
           </div>
 
           {/* Max Salary */}
           <div>
-            <label className="block text-sm text-gray-700 font-medium mb-1">
-              Maximum Salary
+            <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="maxSalary">
+              Maximum Salary (in ₹)
             </label>
             <input
               type="number"
               name="maxSalary"
+              id="maxSalary"
               value={job.maxSalary}
               onChange={handleChange}
-              // UI REFINEMENT: Smoother input style
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+              // Compact, professional input style
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
               placeholder="e.g., 80000"
             />
           </div>
         </div>
 
-        {/* Description */}
-        <div>
-          <label className="block text-sm text-gray-700 font-medium mb-1">
+        {/* Description (Separated by border) */}
+        <div className="pt-4 border-t border-gray-100">
+          <label className="block text-sm text-gray-700 font-medium mb-1" htmlFor="description">
             Job Description
           </label>
           <textarea
             rows={6}
             name="description"
+            id="description"
             value={job.description}
             onChange={handleChange}
-            // UI REFINEMENT: Smoother textarea style
-            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150"
+            // Compact, professional textarea style
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-150 text-sm"
             placeholder="Outline the responsibilities and requirements..."
           ></textarea>
         </div>
 
-        {/* Save Button */}
+        {/* Save Button with Loading State */}
         <div className="flex justify-end pt-4">
           <button
             onClick={handleSave}
-            // UI REFINEMENT: Consistent rounded-full button with hover elevation
-            className="bg-purple-600 text-white px-8 py-2.5 rounded-full font-semibold shadow-lg hover:bg-purple-700 hover:shadow-xl transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            disabled={isSaving}
+            className={`px-6 py-2 rounded-md shadow-lg flex items-center space-x-2 font-medium transition duration-150 ${
+              isSaving
+                ? "bg-purple-400 cursor-not-allowed"
+                : "bg-purple-600 text-white hover:bg-purple-700"
+            }`}
           >
-            Save Changes
+            {isSaving ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Saving...</span>
+              </>
+            ) : (
+              <>
+                <Save className="h-4 w-4" />
+                <span>Save Changes</span>
+              </>
+            )}
           </button>
         </div>
       </div>

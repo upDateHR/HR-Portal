@@ -1,53 +1,63 @@
 import React, { useState } from "react";
 import {
-  Plus, Bell, ChevronDown, ChevronUp, User, LogOut, Menu, X, Briefcase, // Added Briefcase for the Post Job button
+  User, Briefcase, Home, LogOut, FileText, Menu, X, ChevronDown, ChevronUp, Bell, Zap 
 } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
-const Header = ({ setCurrentView, currentView, navigation, userData }) => {
-
+const StudentHeader = ({ setCurrentView, currentView, userData }) => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // 🔥 REAL INITIAL FROM FIREBASE (NO CHANGE TO LOGIC)
-  const initial =
-    userData?.companyName?.charAt(0)?.toUpperCase() ||
-    userData?.name?.charAt(0)?.toUpperCase() ||
-    "A";
-
-  const displayName = userData?.companyName || userData?.name || "Recruiter";
-
-  // --- Logout Handler (NO CHANGE TO LOGIC) ---
+  // --- Logic remains unchanged ---
+  const handleNavClick = (view) => {
+    setCurrentView(view);
+    setIsMobileMenuOpen(false);
+    setIsProfileMenuOpen(false);
+  };
+  
+  const isActive = (view) => view === currentView;
+  
   const handleLogout = async () => {
     await signOut(auth);
     localStorage.removeItem("hr_user");
-    setCurrentView("main_home");
+    setCurrentView("main_home"); 
   };
 
-  const handleNavClick = (view) => {
-      setCurrentView(view);
-      setIsMobileMenuOpen(false); // Close mobile menu on navigation
-      setIsProfileMenuOpen(false); // Close profile menu
-  }
+  const navItems = [
+    { view: "student_home", name: "Home", icon: Home },
+    { view: "#", name: "Find Jobs", icon: Briefcase },
+    { view: "#", name: "Internships", icon: Zap },
+    { view: "#", name: "My Applications", icon: FileText },
+  ];
+  
+  const displayName = userData?.name || "Student";
+  const initial = userData?.name?.charAt(0)?.toUpperCase() || "S";
+  // ---------------------------------------------
 
   return (
-    <header className="sticky top-0 z-20 bg-white shadow-lg border-b border-gray-100">
-      <div className="flex justify-between items-center px-4 sm:px-6 py-3">
+    // EDGE-TO-EDGE FIX: Outer header spans full width (w-full)
+    <header className="sticky top-0 z-20 bg-white shadow-lg border-b border-gray-100 w-full">
+      
+      {/* Centered Content Container */}
+      <div className="max-w-full w-full px-4 sm:px-6 py-3 flex justify-between items-center"div>
 
-        {/* Branding/Logo */}
-        <span className="text-2xl font-bold text-purple-700 tracking-tight">IamHR</span>
+        {/* Branding/Logo: Stick to Left (No changes needed, as it is the first flex item) */}
+        <h1
+          className="text-2xl font-bold text-purple-700 cursor-pointer tracking-tight"
+          onClick={() => handleNavClick("student_home")}
+        >
+          IamHR
+        </h1>
 
-        {/* --- Desktop Navigation --- */}
+        {/* --- Desktop Navigation --- (Identical Styling) */}
         <nav className="hidden md:flex space-x-2 lg:space-x-4 text-sm font-medium">
-          {navigation.map(item => (
+          {navItems.map(item => (
             <button
               key={item.name}
               onClick={() => handleNavClick(item.view)}
-              // 🎨 PROFESSIONAL NAV EFFECT
-              // Increased padding, cleaner hover, smooth transition
-              className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                item.view === currentView
+              className={`flex items-center space-x-2 px-3 py-2 rounded-md transition-all duration-200 ${
+                isActive(item.view)
                   ? "text-purple-600 font-semibold bg-purple-100/70"
                   : "text-gray-600 hover:text-purple-600 hover:bg-gray-50"
               }`}
@@ -58,22 +68,12 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
           ))}
         </nav>
 
-        {/* --- Right Side: Actions & Profile --- */}
+        {/* --- Right Side: Actions & Profile (Identical Structure) --- */}
         <div className="flex items-center space-x-3 relative">
 
-          {/* Post Job Button */}
-          <button
-            onClick={() => handleNavClick("postjob")}
-            className="hidden sm:flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-md font-medium shadow-md hover:bg-purple-700 transition duration-150"
-            title="Post a New Job"
-          >
-            <Briefcase className="h-4 w-4" />
-            <span>Post Job</span>
-          </button>
-          
-          {/* Notifications/Alerts (Placeholder for future) */}
+          {/* Notifications/Alerts (Placeholder) */}
           <button className="text-gray-500 hover:text-purple-600 p-2 rounded-full hover:bg-gray-50 transition duration-150 hidden sm:block">
-            <Bell className="h-5 w-5" />
+            <Bell className="h-5 w-5" /> 
           </button>
 
           {/* Profile Button / Dropdown Toggle */}
@@ -83,7 +83,7 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
           >
             <span className="text-sm hidden sm:inline text-gray-700 font-medium">{displayName}</span>
 
-            {/* Avatar (PURPLE Theme Corrected) */}
+            {/* Avatar (PURPLE Theme) */}
             <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center text-base font-semibold flex-shrink-0">
               {initial}
             </div>
@@ -100,7 +100,7 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
             <div className="absolute right-0 top-12 sm:top-14 bg-white rounded-lg shadow-xl py-1 z-30 min-w-[180px] border border-gray-100 transform translate-y-1">
               {/* Profile Details Button */}
               <button
-                onClick={() => handleNavClick("profile_details")}
+                onClick={() => handleNavClick("#")}
                 className="flex items-center w-full px-4 py-2 text-gray-700 text-sm hover:bg-purple-50 transition duration-150"
               >
                 <User className="mr-3 h-4 w-4 text-purple-500" /> My Profile
@@ -124,16 +124,16 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
         </div>
       </div>
       
-      {/* --- Mobile Menu Drawer (Overlay) --- */}
+      {/* --- Mobile Menu Drawer --- */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 pb-4 z-10">
           <nav className="flex flex-col p-4 space-y-1">
-            {navigation.map(item => (
+            {navItems.map(item => (
               <button
                 key={`mobile-${item.name}`}
                 onClick={() => handleNavClick(item.view)}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-md transition duration-150 text-base ${
-                  item.view === currentView
+                  isActive(item.view)
                     ? "text-purple-600 font-semibold bg-purple-100/70"
                     : "text-gray-700 hover:text-purple-600 hover:bg-gray-50"
                 }`}
@@ -143,14 +143,14 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
               </button>
             ))}
             
-            {/* Mobile Post Job Button (Primary Action) */}
+            {/* Mobile Logout Button */}
             <button
-                onClick={() => handleNavClick("postjob")}
-                className="flex items-center space-x-2 bg-purple-600 text-white px-3 py-2 rounded-md font-medium shadow-md hover:bg-purple-700 transition duration-150 mt-2"
-                title="Post a New Job"
+                onClick={handleLogout}
+                className="flex items-center space-x-2 bg-red-600 text-white px-3 py-2 rounded-md font-medium shadow-md hover:bg-red-700 transition duration-150 mt-4"
+                title="Logout"
             >
-                <Briefcase className="h-5 w-5" />
-                <span>Post New Job</span>
+                <LogOut className="h-5 w-5" />
+                <span>Logout</span>
             </button>
           </nav>
         </div>
@@ -159,4 +159,4 @@ const Header = ({ setCurrentView, currentView, navigation, userData }) => {
   );
 };
 
-export default Header;
+export default StudentHeader;

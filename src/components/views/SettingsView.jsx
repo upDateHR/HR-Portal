@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Settings, Loader2, User, Building2 } from "lucide-react"; // Imported User and Building2 from the component itself, not relying on destructuring in the prompt
+import { Loader2, User, Building2, Settings } from "lucide-react"; // Added Settings icon for the header
 
+// Firebase - NO CHANGE
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+
+// Components - NO CHANGE
 import ProfileSettings from "./SettingsComponents/ProfileSettings";
 import CompanySettings from "./SettingsComponents/CompanySettings";
-import { getInitialSettings } from "../../helpers/employerService";
 
 const SettingsView = () => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -15,86 +19,116 @@ const SettingsView = () => {
 
   const [loading, setLoading] = useState(true);
 
+  // =====================================================
+  // 🔥 LOAD USER DATA FROM FIRESTORE (/users/{uid}) - NO CHANGE TO LOGIC
+  // =====================================================
   useEffect(() => {
-    const fetchSettings = async () => {
+    const loadData = async () => {
       try {
-        const data = await getInitialSettings();
-        setSettingsData({
-          profile: data?.profile || settingsData.profile,
-          company: data?.company || settingsData.company,
-        });
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const ref = doc(db, "users", user.uid);
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+          const data = snap.data();
+
+          setSettingsData({
+            profile: {
+              name: data.name || "",
+              email: data.email || "",
+              phone: data.phone || "",
+              role: data.role || "",
+            },
+            company: {
+              companyName: data.companyName || "",
+              website: data.website || "",
+              companyDescription: data.companyDescription || "",
+            },
+          });
+        }
+      } catch (err) {
+        console.error("Failed to load settings:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSettings();
+    loadData();
   }, []);
 
-  const tabs = [
-    { id: "profile", name: "My Profile", icon: User },
-    { id: "company", name: "Company Details", icon: Building2 },
-  ];
-
-  const renderTabContent = () => {
+  // =====================================================
+  // TAB CONTENT - NO CHANGE TO LOGIC
+  // =====================================================
+  const renderContent = () => {
     if (loading) {
       return (
         <div className="text-center py-10">
-          {/* UI REFINEMENT: Consistent loading spinner style */}
           <Loader2 className="animate-spin h-8 w-8 mx-auto text-purple-600" />
           <p className="mt-2 text-gray-600 font-medium">Loading settings…</p>
         </div>
       );
     }
-    
-    // Note: The child components (ProfileSettings/CompanySettings) already contain their own card/shadow styling, 
-    // but the content wrapper here must be clean to support them.
 
     if (activeTab === "profile") {
-      // Passes the initialData, ensuring the form components render properly
+      // NOTE: ProfileSettings will be expected to contain refined, professional inputs.
       return <ProfileSettings initialData={settingsData.profile} />;
     }
 
     if (activeTab === "company") {
-      // Passes the initialData
+      // NOTE: CompanySettings will be expected to contain refined, professional inputs.
       return <CompanySettings initialData={settingsData.company} />;
     }
   };
 
-  return (
-    <div className="py-8 max-w-4xl mx-auto"> 
-      {/* FONT REVERT: Original font size/weight maintained */}
-      <h1 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">
-        Account Settings
-      </h1>
-      <p className="text-lg text-gray-600 mb-8">
-        Manage your personal profile and company information.
-      </p>
+  // =====================================================
+  // TABS - NO CHANGE TO LOGIC
+  // =====================================================
+  const tabs = [
+    { id: "profile", name: "My Profile", icon: User },
+    { id: "company", name: "Company Details", icon: Building2 },
+  ];
 
-      {/* MAIN BLOCK: Consistent card block, shadow-xl, rounded-2xl, overflow-hidden */}
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-        
-        {/* Tabs Container */}
-        {/* UI REFINEMENT: Increased padding, clear border, slightly cleaner background */}
-        <div className="border-b border-gray-200 bg-gray-50">
-          <nav className="flex space-x-8 px-8" aria-label="Tabs">
+  // =====================================================
+  // MAIN RENDER - Refined UI
+  // =====================================================
+  return (
+    <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+      {/* Header - Refined Typography and Icon */}
+      <header className="mb-8 flex items-center">
+        <Settings className="h-6 w-6 text-purple-600 mr-3 hidden sm:block" />
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+            Account Settings
+          </h1>
+          <p className="text-base text-gray-600 mt-1">
+            Manage your personal profile and company information.
+          </p>
+        </div>
+      </header>
+
+      <div className="bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden">
+
+        {/* Tabs - Modernized and Purple Theme */}
+        <div className="border-b border-gray-200 bg-gray-50/50">
+          <nav className="flex space-x-0 sm:space-x-8 px-4 sm:px-8 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                // UI REFINEMENT: Added transition to the button, used border-b-4 for a more prominent indicator
-                className={`group inline-flex items-center py-4 px-1 border-b-4 font-semibold text-base transition-all duration-200 focus:outline-none ${
+                // Elegant tab styling: subtle border transition, purple highlight
+                className={`group inline-flex items-center whitespace-nowrap py-3 px-3 sm:px-1 border-b-2 font-medium text-sm sm:text-base transition-all duration-200 ${
                   activeTab === tab.id
                     ? "border-purple-600 text-purple-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    : "border-transparent text-gray-600 hover:text-purple-700 hover:border-purple-300"
                 }`}
               >
                 <tab.icon
-                  // UI REFINEMENT: Ensured icon color transitions correctly with the button
-                  className={`mr-3 h-5 w-5 transition duration-200 ${
+                  className={`mr-2 h-5 w-5 transition ${
                     activeTab === tab.id
                       ? "text-purple-600"
-                      : "text-gray-400 group-hover:text-gray-600"
+                      : "text-gray-400 group-hover:text-purple-500"
                   }`}
                 />
                 {tab.name}
@@ -104,8 +138,10 @@ const SettingsView = () => {
         </div>
 
         {/* Content Area */}
-        {/* UI REFINEMENT: Increased padding to match other forms (p-8 vs original p-6) */}
-        <div className="p-8">{renderTabContent()}</div>
+        {/* Padding adjusted for better content flow, especially for forms */}
+        <div className="p-4 sm:p-6 lg:p-8">
+            {renderContent()}
+        </div>
       </div>
     </div>
   );

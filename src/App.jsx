@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import Header from "./components/navigation/Header";
+
+import MainHomePage from "./components/views/MainHomePage";
+import Header from "./components/navigation/Header"; // <-- Recruiter Header
+import StudentHeader from "./components/student/StudentHeader"; // 💥 ADDED: Student Header Import
+
 import DashboardView from "./components/views/DashboardView";
 import MyJobsTable from "./components/views/MyJobsTable";
 import ApplicantsView from "./components/views/ApplicantsView";
@@ -9,151 +13,208 @@ import SettingsView from "./components/views/SettingsView";
 import ProfileDetailsView from "./components/views/ProfileDetailsView";
 import PostJobForm from "./components/views/PostJobForm";
 import HomeView from "./components/views/HomeView";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import EditJobForm from "./components/views/EditJobForm";   // ✅ Added
+import EditJobForm from "./components/views/EditJobForm";
 
+// STUDENT SIDE
+import StudentHomePage from "./components/student/StudentHomePage";
+
+
+
+
+
+// FIREBASE AUTH PAGES
+import LoginPage from "./pages/Login";
+import SignupRole from "./pages/SignupRole";
+import SignupCandidate from "./pages/SignupCandidate";
+import SignupRecruiter from "./pages/SignupRecruiter";
+
+// FIREBASE
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+
+// Navigation Icons
 import {
-  LayoutDashboard,
-  Briefcase,
-  Users,
-  LineChart,
-  Settings,
-  Home
+  LayoutDashboard,
+  Briefcase,
+  User2,
+  BarChart2,
+  Settings,
+  Home
 } from "lucide-react";
 
-// NAVIGATION MENU
-const navigation = [
-  { name: "Home", icon: Home, view: "home" },
-  { name: "Dashboard", icon: LayoutDashboard, view: "dashboard" },
-  { name: "My Jobs", icon: Briefcase, view: "myjobs" },
-  { name: "Applicants", icon: Users, view: "applicants" },
-  { name: "Analytics", icon: LineChart, view: "analytics" },
-  { name: "Settings", icon: Settings, view: "settings" }
+const App = () => {
+  const [currentView, setCurrentView] = useState("main_home");
+  const [role, setRole] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState(null);
+
+  // ================================
+  // FIREBASE AUTH LISTENER (Logic remains untouched)
+  // ================================
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setUserData(null);
+        setRole(null);
+        setCurrentView("main_home");
+        setLoading(false);
+        return;
+      }
+
+      // fetch Firestore profile
+      const ref = doc(db, "users", user.uid);
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        setUserData(snap.data());
+        setRole(snap.data().role);
+
+        if (snap.data().role === "candidate") {
+          setCurrentView("student_home");
+        } else if (snap.data().role === "recruiter") {
+          setCurrentView("home");
+        }
+      }
+
+      setLoading(false);
+    });
+
+    return () => unsub();
+  }, []);
+
+  // ======================================
+  // RECRUITER NAVIGATION (Content remains untouched)
+  // ======================================
+  const navigation = [
+  { name: "Home", icon: Home, view: "home" },
+  { name: "Dashboard", icon: LayoutDashboard, view: "dashboard" },
+  { name: "My Jobs", icon: Briefcase, view: "myjobs" },
+  { name: "Applicants", icon: User2, view: "applicants" },
+  { name: "Analytics", icon: BarChart2, view: "analytics" },
+  { name: "Settings", icon: Settings, view: "settings" }
 ];
 
-const App = () => {
-  const [currentView, setCurrentView] = useState("login");
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
-  // Load token
-  const [token, setToken] = useState(() => {
-    try {
-      return localStorage.getItem("hr_token");
-    } catch {
-      return null;
-    }
-  });
+  // ======================================
+  // MAIN VIEW RENDERER (Logic remains untouched)
+  // ======================================
+  const renderView = () => {
+    // 🔵 Public Landing Page
+    if (currentView === "main_home") {
+      return <MainHomePage setCurrentView={setCurrentView} />;
+    }
 
-  const setAuthToken = (newToken) => {
-    try {
-      if (newToken) localStorage.setItem("hr_token", newToken);
-      else localStorage.removeItem("hr_token");
-    } catch {}
+    // 🔵 Auth Pages
+    if (currentView === "firebase_login") {
+      return <LoginPage setCurrentView={setCurrentView} />;
+    }
+    if (currentView === "signup_role") {
+      return <SignupRole setCurrentView={setCurrentView} />;
+    }
+    if (currentView === "signup_candidate") {
+      return <SignupCandidate setCurrentView={setCurrentView} />;
+    }
+    if (currentView === "signup_recruiter") {
+      return <SignupRecruiter setCurrentView={setCurrentView} />;
+    }
 
-    setToken(newToken);
-  };
+    // ==============================
+    // 🔵 STUDENT (Firebase)
+    // ==============================
+    if (role === "candidate") {
+      switch (currentView) {
+        case "student_home":
+          return <StudentHomePage setCurrentView={setCurrentView} currentView={currentView} />;
+        default:
+          return <StudentHomePage setCurrentView={setCurrentView} currentView={currentView} />;
+      }
+    }
 
-  // Sync token between tabs
-  useEffect(() => {
-    const onStorage = (e) => {
-      if (e.key === "hr_token") setToken(e.newValue);
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+    // ==============================
+    // 🔵 RECRUITER (Firebase)
+    // ==============================
+    if (role === "recruiter") {
+      const viewName = currentView.view || currentView;
 
-  // -------------------------------
-  // RENDER VIEW SWITCHER
-  // -------------------------------
-  const renderView = () => {
-    // If NOT logged in → show login/register
-    if (!token) {
-      if (currentView === "register") {
-        return (
-          <Register
-            setCurrentView={setCurrentView}
-            setAuthToken={setAuthToken}
+      switch (viewName) {
+        case "home":
+          return <HomeView setCurrentView={setCurrentView} />;
+
+        case "dashboard":
+          return <DashboardView setCurrentView={setCurrentView} />;
+
+        case "myjobs":
+          return <MyJobsTable setCurrentView={setCurrentView} />;
+
+        case "postjob":
+          return <PostJobForm setCurrentView={setCurrentView} />;
+
+        case "editjob":
+          return (
+            <EditJobForm
+              jobId={currentView.id}
+              setCurrentView={setCurrentView}
+            />
+          );
+
+        case "applicants":
+          return <ApplicantsView />;
+
+        case "analytics":
+          return <AnalyticsView />;
+
+        case "settings":
+          return <SettingsView />;
+
+        case "profile_details":
+          return (
+            <ProfileDetailsView setCurrentView={setCurrentView} />
+          );
+
+        default:
+          return <HomeView setCurrentView={setCurrentView} />;
+      }
+    }
+
+    return <MainHomePage setCurrentView={setCurrentView} />;
+  };
+
+  if (loading) return <div className="p-10 text-center">Loading...</div>;
+
+  return (
+    <div className="min-h-screen bg-gray-50 font-sans">
+      
+      {/* 💥 RECRUITER HEADER (Conditional Rendering) */}
+      {role === "recruiter" && (
+        <Header
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+            navigation={navigation}
+            userData={userData}
           />
-        );
-      }
-      return <Login setCurrentView={setCurrentView} setAuthToken={setAuthToken} />;
-    }
-
-    // If logged in → show main pages
-    const viewName = currentView.view || currentView;
-
-    
-
-    switch (viewName) {
-      case "home":
-        return <HomeView setCurrentView={setCurrentView} token={token} />;
-
-      case "dashboard":
-        return <DashboardView setCurrentView={setCurrentView} token={token} />;
-
-      case "myjobs":
-        return <MyJobsTable setCurrentView={setCurrentView} token={token} />;
-
-      case "postjob":
-        return <PostJobForm setCurrentView={setCurrentView} token={token} />;
-
-      case "editjob":
-        return (
-          <EditJobForm
-            jobId={currentView.id}
-            setCurrentView={setCurrentView}
-            token={token}
+      )}
+      
+      {/* 💥 STUDENT HEADER (Conditional Rendering) */}
+      {role === "candidate" && (
+        <StudentHeader
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+            userData={userData}
           />
-        );
+      )}
+      
+      {/* FIX: Removed max-w-7xl mx-auto p-6 from main. */}
+      <main>{renderView()}</main>
 
-      case "applicants":
-        return <ApplicantsView token={token} />;
-
-      case "analytics":
-        return <AnalyticsView token={token} />;
-
-      case "settings":
-        return <SettingsView token={token} />;
-
-      case "profile_details":
-        return <ProfileDetailsView setCurrentView={setCurrentView} token={token} />;
-
-        
-
-      default:
-        return <HomeView setCurrentView={setCurrentView} token={token} />;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-
-      {/* HEADER ONLY WHEN LOGGED IN */}
-      {token && (
-        <Header
-          setCurrentView={setCurrentView}
-          currentView={currentView}
-          isProfileMenuOpen={isProfileMenuOpen}
-          setIsProfileMenuOpen={setIsProfileMenuOpen}
-          navigation={navigation}
-          setAuthToken={setAuthToken}
-        />
-      )}
-
-      {/* PAGE CONTENT */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {renderView()}
-      </main>
-
-      {/* FOOTER */}
-      {token && (
-        <footer className="mt-16 text-center text-xs text-gray-400 p-4 border-t border-gray-100">
-          © {new Date().getFullYear()} I am HR Portal. All rights reserved.
-        </footer>
-      )}
-    </div>
-  );
+      {role === "recruiter" && (
+        <footer className="text-center text-xs text-gray-400 p-4 border-t w-full">
+          © {new Date().getFullYear()} I am HR Portal.
+        </footer>
+      )}
+    </div>
+  );
 };
 
 export default App;
