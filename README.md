@@ -1,4 +1,4 @@
-# Frontenpd Part - React + Tailwind with firebase datbase/backend
+# Frontenpd Part - React + Tailwind with firebase database/backend
 
 # feature/employer side dashboard branch
 # 1.Clone the repository 
