@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ATS Result</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="light-bg">
+    <main class="wrap">
+      <a href="/" class="back">← New analysis</a>
+
+      <section class="result-card card">
+        <div class="result-top no-gauge">
+          <div class="result-meta">
+            <h2>ATS Resume Score</h2>
+            <div class="score big" id="scoreVal">{{ data.score }}%</div>
+            <div class="muted">
+              JD Match: <strong>{{ data.jd_score }}%</strong> · Words: {{
+              data.word_count }}
+            </div>
+
+            <div class="mt actions-inline">
+              <a class="btn accent" href="/download/{{ report_id }}"
+                >Download Report (TXT)</a
+              >
+              <button id="copyRec" class="btn ghost">
+                Copy Recommendations
+              </button>
+              <button id="toggleParsed" class="btn ghost">
+                Toggle Detected Text
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h4>Contacts</h4>
+            <pre class="mini-box">{{ data.emails }} {{ data.phones }}</pre>
+
+            <h4 class="mt">Detected Sections</h4>
+            <div class="chips">
+              {% for s in data.detected_sections %}
+              <span class="chip">{{ s }}</span>
+              {% endfor %}
+            </div>
+
+            <h4 class="mt">Found Keywords</h4>
+            <div class="chips">
+              {% for k in data.found_keywords %}
+              <span class="chip">{{ k }}</span>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div>
+            <h4>Recommendations</h4>
+            <div class="recs">
+              {% for r in data.recommendations %}
+              <div class="rec-item">{{ r }}</div>
+              {% endfor %}
+            </div>
+
+            <h4 class="mt">JD Matches (sample)</h4>
+            <pre class="mini-box">{{ data.jd_matches }}</pre>
+
+            <h4 class="mt">Experience estimate</h4>
+            <div class="muted">Check detected preview below for ranges.</div>
+          </div>
+        </div>
+
+        <div id="parsedBlock" class="parsed-block hidden">
+          <h4>Detected Text</h4>
+          <pre class="parsed-text">{{ text }}</pre>
+        </div>
+      </section>
+
+    </main>
+
+    <script>
+
+      window.SCORE = Number("{{ data.score }}");
+    </script>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ATS Resume Checker</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body class="light-bg">
+    <main class="wrap">
+      <header class="header">
+        <div class="brand">
+          <div class="logo">⚙️</div>
+          <div>
+            <h1>ATS Resume Checker</h1>
+            <p class="muted">
+              Upload your resume and get an ATS-style analysis
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <form
+          id="uploadForm"
+          class="card card-left"
+          method="POST"
+          action="/analyze"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <label class="label">Upload Resume (PDF or DOCX)</label>
+
+          <div id="dropzone" class="dropzone">
+            <input
+              id="fileInput"
+              name="resume"
+              type="file"
+              accept=".pdf,.docx,.doc"
+              class="hidden-file"
+              required
+            />
+            <div class="drop-inner">
+              <svg class="upload-ic" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12 3v10m0 0l-4-4m4 4 4-4M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-width="1.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <p id="dropText" class="drop-text">
+                Drop file here or click to browse
+              </p>
+              <p class="muted small">PDF and DOCX • Max 16MB</p>
+            </div>
+          </div>
+
+          <label class="label">Paste Job Description (optional)</label>
+          <textarea
+            id="jd"
+            name="jd"
+            placeholder="Paste job description to compute JD-match..."
+            rows="5"
+          ></textarea>
+
+          <div class="actions">
+            <button id="analyzeBtn" class="btn primary" disabled>
+              Analyze Resume
+            </button>
+            <button id="resetBtn" type="button" class="btn ghost">Reset</button>
+            <div
+              id="spinner"
+              class="spinner hidden"
+              aria-hidden="true"
+              title="Analyzing…"
+            ></div>
+          </div>
+
+          <div id="uploadNotice" class="upload-notice hidden">
+            <strong id="fileName">No file</strong>
+          </div>
+
+          <div id="previewArea" class="preview muted">No analysis yet.</div>
+        </form>
+
+        <aside class="card card-right minimal">
+          <h3 class="muted">Ready when you are</h3>
+          <p class="muted small">
+            Upload a resume and click <strong>Analyze Resume</strong>. Results
+            appear on the next page with recommendations and a downloadable
+            JSON.
+          </p>
+        </aside>
+      </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+  </body>
+</html>
