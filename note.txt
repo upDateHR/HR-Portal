@@ -1,0 +1,6 @@
+intern
+
+Jx5nxjCJWq0QXrll
+
+mongodb+srv://intern:<db_password>@cluster0.lx61kp1.mongodb.net/?appName=Cluster0
+
