@@ -8,6 +8,7 @@ import Navbar from './components/Navbar.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import CandidateRegister from './candidate/Components/Candidate.jsx'
 import CompanyRegister from './components/Register.jsx'
+import ChatWidget from './components/ChatWidget.jsx'
 
 function LandingPage() {
   return (
@@ -63,49 +64,54 @@ function LandingPage() {
           </div>
         </div>
       </div>
+
+      {/* 🟣 Chatbot available on Landing page */}
+      <ChatWidget />
     </>
   )
 }
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
+    <>
+      {/* 🟣 Chatbot available on ALL pages (before & after login) */}
+      <ChatWidget />
 
-      {/* Top-level auth pages */}
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      {/* Registration pages for each portal */}
-      <Route path="/candidate/signup" element={
-        <CandidateRegister />
-      } />
-      <Route path="/company/signup" element={
-        <CompanyRegister />
-      } />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
 
-      {/* Employer Portal (protected) */}
-      <Route
-        path="/company/*"
-        element={
-          <ProtectedRoute allowedRole={'employer'}>
-            <EmployerApp />
-          </ProtectedRoute>
-        }
-      />
+        {/* Auth Pages */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
 
-      {/* Candidate Portal (protected) */}
-      <Route
-        path="/candidate/*"
-        element={
-          <ProtectedRoute allowedRole={'candidate'}>
-            <CandidateApp />
-          </ProtectedRoute>
-        }
-      />
+        {/* Registration Pages */}
+        <Route path="/candidate/signup" element={<CandidateRegister />} />
+        <Route path="/company/signup" element={<CompanyRegister />} />
 
-      {/* Fallback Redirect */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* Employer Portal (protected) */}
+        <Route
+          path="/company/*"
+          element={
+            <ProtectedRoute allowedRole={'employer'}>
+              <EmployerApp />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Candidate Portal (protected) */}
+        <Route
+          path="/candidate/*"
+          element={
+            <ProtectedRoute allowedRole={'candidate'}>
+              <CandidateApp />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   )
 }
 

@@ -118,3 +118,8 @@ export const getApplicants = async () => {
   const res = await API.get('/applicants');
   return res.data;
 };
+
+export const sendMessageToAssistant = async (message) => {
+    const res = await API.post('/assistant/chat', { message }); // Assumes /api/assistant/chat
+    return res.data.reply;
+};
