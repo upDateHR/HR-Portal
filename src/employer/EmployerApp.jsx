@@ -9,6 +9,7 @@ import SettingsView from "./components/views/SettingsView";
 import ProfileDetailsView from "./components/views/ProfileDetailsView";
 import PostJobForm from "./components/views/PostJobForm";
 import HomeView from "./components/views/HomeView";
+import MyHirings from "./components/views/MyHirings";
 
 import EditJobForm from "./components/views/EditJobForm";   // ✅ Added
 
@@ -18,7 +19,8 @@ import {
   Users,
   LineChart,
   Settings,
-  Home
+  Home,
+  UserCheck
 } from "lucide-react";
 
 // NAVIGATION MENU
@@ -28,6 +30,7 @@ const navigation = [
   { name: "My Jobs", icon: Briefcase, view: "myjobs" },
   { name: "Applicants", icon: Users, view: "applicants" },
   { name: "Analytics", icon: LineChart, view: "analytics" },
+  { name: "My Hirings", icon: UserCheck, view: "myhirings" },
   { name: "Settings", icon: Settings, view: "settings" }
 ];
 
@@ -93,6 +96,9 @@ const App = ({ initialView }) => {
 
       case "applicants":
         return <ApplicantsView token={token} />;
+
+      case "myhirings": // <-- ADD THIS CASE
+        return <MyHirings setCurrentView={setCurrentView} token={token} />;
 
       case "analytics":
         return <AnalyticsView token={token} />;
