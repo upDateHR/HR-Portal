@@ -1,0 +1,16 @@
+{
+  "node": {
+    "4004cf024f86d4b45f24cb5bf7aa1e853a6dd155ae": {
+      "workers": {
+        "app/interview-prep/page": {
+          "moduleId": "[project]/.next-internal/server/app/interview-prep/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/interview-prep/page": "action-browser"
+      }
+    }
+  },
+  "edge": {}
+}
