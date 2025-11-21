@@ -9,13 +9,16 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import CandidateRegister from './candidate/Components/Candidate.jsx'
 import CompanyRegister from './components/Register.jsx'
 import MainHomePage from './MainHomePage.jsx'
+// <<<<<<< HEAD
 import Footer from './candidate/Components/Footer.jsx'
+
+import ChatWidget from './components/ChatWidget.jsx'
+// >>>>>>> 4ea7dc1a30a24df122223876e3cef9356f2e3264
 
 function LandingPage() {
   return (
     <>
       <Navbar />
-      <MainHomePage/>
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-white flex flex-col items-center px-6 py-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
           Find Internships & Hire Talent
@@ -66,50 +69,58 @@ function LandingPage() {
           </div>
         </div>
       </div>
+{/* <<<<<<< HEAD
       <Footer/>
+=======
+
+      {/* 🟣 Chatbot available on Landing page */}
+      {/* <ChatWidget /> */}
+{/* >>>>>>> 4ea7dc1a30a24df122223876e3cef9356f2e3264 */}
     </>
   )
 }
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
+    <>
+      {/* 🟣 Chatbot available on ALL pages (before & after login) */}
+      <ChatWidget />
 
-      {/* Top-level auth pages */}
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      {/* Registration pages for each portal */}
-      <Route path="/candidate/signup" element={
-        <CandidateRegister />
-      } />
-      <Route path="/company/signup" element={
-        <CompanyRegister />
-      } />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
 
-      {/* Employer Portal (protected) */}
-      <Route
-        path="/company/*"
-        element={
-          <ProtectedRoute allowedRole={'employer'}>
-            <EmployerApp />
-          </ProtectedRoute>
-        }
-      />
+        {/* Auth Pages */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
 
-      {/* Candidate Portal (protected) */}
-      <Route
-        path="/candidate/*"
-        element={
-          <ProtectedRoute allowedRole={'candidate'}>
-            <CandidateApp />
-          </ProtectedRoute>
-        }
-      />
+        {/* Registration Pages */}
+        <Route path="/candidate/signup" element={<CandidateRegister />} />
+        <Route path="/company/signup" element={<CompanyRegister />} />
 
-      {/* Fallback Redirect */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* Employer Portal (protected) */}
+        <Route
+          path="/company/*"
+          element={
+            <ProtectedRoute allowedRole={'employer'}>
+              <EmployerApp />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Candidate Portal (protected) */}
+        <Route
+          path="/candidate/*"
+          element={
+            <ProtectedRoute allowedRole={'candidate'}>
+              <CandidateApp />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   )
 }
 
