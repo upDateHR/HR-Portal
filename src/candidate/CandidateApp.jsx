@@ -15,12 +15,11 @@ import Dashboard from "./Pages/Dashboard";
 import Applicants from "./Pages/Applicants";
 import Analytics from "./Pages/Analytics";
 import Settings from "./Pages/Settings";
-
-
+import ResumeBuilder from "./Pages/ResumeBuilder";
 
 function CandidateApp() {
   const location = useLocation();
-  const hideFooter = location.pathname.includes('/dashboard');
+  const hideFooter = location.pathname.includes("/dashboard");
   return (
     <>
       {/* <h1 class="text-3xl text-red-500 font-bold underline">Hello world!</h1> */}
@@ -36,8 +35,7 @@ function CandidateApp() {
         <Route path="/applicants" element={<Applicants />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
-
-
+        <Route path="/resumebuilder" element={<ResumeBuilder />} />
       </Routes>
       {!hideFooter && <Footer />}
       <ToastContainer />

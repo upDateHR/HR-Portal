@@ -112,6 +112,9 @@ export default function Navbar() {
             <Link to="analytics" aria-label="Analytics">
               Analytics
             </Link>
+            <Link to="resumebuilder" aria-label="ResumeBuilder">
+              Resume Maker
+            </Link>
             <Link to="settings" aria-label="Settings">
               Settings
             </Link>
@@ -203,6 +206,7 @@ export default function Navbar() {
           <MobileLink to="jobs" label="My Jobs" />
           {/* Applicants removed from mobile menu (employer-only) */}
           <MobileLink to="analytics" label="Analytics" />
+          <MobileLink to="resumebuilder" label="ResumeBuilder" />
           <MobileLink to="settings" label="Settings" />
 
           <div className="pt-2">
