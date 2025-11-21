@@ -23,14 +23,19 @@
     "mongoose": "^8.20.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^6.28.0",
     "react-toastify": "^10.0.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.7.0",
+<<<<<<< HEAD
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.11",
+=======
+    "concurrently": "^8.2.0",
+>>>>>>> feature/ai-chatbot
     "vite": "^6.0.0"
   }
 }
