@@ -15,7 +15,7 @@ function LandingPage() {
   return (
     <>
       <Navbar />
-      <MainHomePage/>
+      <MainHomePage />
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-white flex flex-col items-center px-6 py-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
           Find Internships & Hire Talent
