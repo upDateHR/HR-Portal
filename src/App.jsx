@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import CandidateRegister from './candidate/Components/Candidate.jsx'
 import CompanyRegister from './components/Register.jsx'
 import MainHomePage from './MainHomePage.jsx'
+import Footer from './candidate/Components/Footer.jsx'
 
 function LandingPage() {
   return (
@@ -65,6 +66,7 @@ function LandingPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }

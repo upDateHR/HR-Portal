@@ -43,7 +43,7 @@ export default function Signup() {
           <div className="left-circle left-circle2"></div>
           <h1 className="logo">IamHR</h1>
           <p className="left-desc">
-            Join Unstop and find your dream job or recruit talented candidates.
+            Join IamHR and find your dream job or recruit talented candidates.
           </p>
         </div>
 
