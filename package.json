@@ -30,12 +30,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.7.0",
-<<<<<<< HEAD
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.11",
-=======
-    "concurrently": "^8.2.0",
->>>>>>> feature/ai-chatbot
     "vite": "^6.0.0"
   }
 }

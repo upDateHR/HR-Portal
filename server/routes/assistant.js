@@ -5,6 +5,8 @@ const axios = require("axios");
 
 router.post("/chat", async (req, res) => {
   const { message } = req.body;
+  console.log("ENV TEST:", process.env.OPENROUTER_API_KEY);
+
 
   try {
     const response = await axios.post(
@@ -25,6 +27,7 @@ router.post("/chat", async (req, res) => {
       {
         headers: {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          
           "Content-Type": "application/json"
         }
       }

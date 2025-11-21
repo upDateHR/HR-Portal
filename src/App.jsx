@@ -8,11 +8,8 @@ import Navbar from './components/Navbar.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import CandidateRegister from './candidate/Components/Candidate.jsx'
 import CompanyRegister from './components/Register.jsx'
-<<<<<<< HEAD
 import MainHomePage from './components/MainHomePage.jsx'
-=======
 import ChatWidget from './components/ChatWidget.jsx'
->>>>>>> feature/ai-chatbot
 
 function LandingPage() {
   return (
