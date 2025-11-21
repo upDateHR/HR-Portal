@@ -25,7 +25,7 @@ async function start() {
     try {
         const mongo = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/hr-portal';
         await mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log('MongoDB connected');
+        console.log('MongoDB connected Successfuly');
         app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
     } catch (err) {
         console.error('Failed to start server', err);
