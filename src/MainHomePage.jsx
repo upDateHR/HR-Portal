@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MainHomePage = () => {
   const courses = [
@@ -51,19 +52,23 @@ const MainHomePage = () => {
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#explore"
-                  className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-200 text-sm font-medium"
-                >
-                  Explore Opportunities
-                </a>
+                <Link to="/login">
+                  <a
+                    href="#how-it-works"
+                    className="inline-flex items-center justify-center rounded-2xl  px-6 py-3 text-slate-700 bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-3 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 "
+                  >
+                    Explore Opportunities
+                  </a>
+                </Link>
 
-                <a
-                  href="#how-it-works"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-6 py-3 text-slate-700 bg-white hover:bg-slate-50"
-                >
-                  How it works
-                </a>
+                <Link to="/login">
+                  <a
+                    href="#how-it-works"
+                    className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-6 py-3 text-slate-700 bg-white hover:bg-slate-50"
+                  >
+                    How it works
+                  </a>
+                </Link>
               </div>
             </div>
 
@@ -149,9 +154,11 @@ const MainHomePage = () => {
                   your career!
                 </p>
 
-                <button className="mt-4 px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4  text-white rounded-xl shadow-md transition font-medium">
-                  Explore Courses
-                </button>
+                <Link to="/signup">
+                  <button className="mt-4 px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4  text-white rounded-xl shadow-md transition font-medium">
+                    Explore Skills
+                  </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -193,12 +200,14 @@ const MainHomePage = () => {
 
                         {/* Push button to bottom */}
                         <div className="mt-auto">
-                          <a
-                            href="#explore"
-                            className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-200 text-sm font-medium transition-all"
-                          >
-                            Know more
-                          </a>
+                          <Link to="/signup">
+                            <a
+                              href="#explore"
+                              className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-200 text-sm font-medium transition-all"
+                            >
+                              Know more
+                            </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -226,12 +235,14 @@ const MainHomePage = () => {
                   <li>🌀 Perfect for freshers and first-time job seekers</li>
                 </ul>
 
-                <a
-                  href="#explore"
-                  className="mt-2 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 text-base font-semibold transition-all"
-                >
-                  Build my resume
-                </a>
+                <Link to="/login">
+                  <a
+                    href="#explore"
+                    className="mt-2 inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-300 text-base font-semibold transition-all"
+                  >
+                    Build my resume
+                  </a>
+                </Link>
               </div>
             </div>
           </section>
@@ -250,12 +261,9 @@ const MainHomePage = () => {
 
               {/* Right Side Content */}
               <div className="w-full lg:w-170 space-y-4">
-                <a
-                  href="#explore"
-                  className="mt-2 inline-flex items-center gap-3 rounded-2xl border border-white-600 px-4 py-2 text-base font-semibold transition-all"
-                >
+                <h1 className="mt-2 inline-flex items-center gap-3 rounded-2xl border border-white-600 px-4 py-2 text-base font-semibold transition-all">
                   IAMHR FOR EMPLOYERS
-                </a>
+                </h1>
 
                 <h1 className="text-3xl font-bold text-White-900">
                   Looking to hire freshers and interns?
@@ -266,12 +274,14 @@ const MainHomePage = () => {
                   hire faster.
                 </p>
 
-                <a
-                  href="#explore"
-                  className="mt-2 inline-flex items-center gap-3 rounded-2xl border border-white-600 px-4 py-2 text-base font-semibold transition-all"
-                >
-                  Post now for free
-                </a>
+                <Link to="/login">
+                  <a
+                    href="#explore"
+                    className="mt-2 inline-flex items-center gap-3 rounded-2xl border border-white-600 px-4 py-2 text-base font-semibold transition-all"
+                  >
+                    Post now for free
+                  </a>
+                </Link>
               </div>
             </div>
           </section>
