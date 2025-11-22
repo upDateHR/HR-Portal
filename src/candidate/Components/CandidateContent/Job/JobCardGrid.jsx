@@ -33,7 +33,7 @@ const CardGrid = () => {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-10 py-10">
+    <section className="max-w-7xl mx-auto px-10 py-5">
       <h2 className="text-2xl font-bold mb-2">Jobs</h2>
       {jobs.length === 0 ? (
         <p className="text-gray-600">No jobs available right now.</p>

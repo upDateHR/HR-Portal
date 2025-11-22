@@ -7,7 +7,7 @@ const InternshipPage = () => {
   return (
     <>
       <InternHome />
-      <Footer />
+      
     </>
   )
 }
