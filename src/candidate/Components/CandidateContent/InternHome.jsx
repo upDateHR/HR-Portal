@@ -47,11 +47,9 @@ export default function InternHome() {
           </div>
         </section>
 
-        {/*  */}
+        
         <div className="mb-10">
           <CardGrid />
-
-          
         </div>
       </main>
     </>

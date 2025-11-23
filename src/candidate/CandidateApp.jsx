@@ -16,6 +16,7 @@ import Applicants from "./Pages/Applicants";
 import Analytics from "./Pages/Analytics";
 import Settings from "./Pages/Settings";
 import ResumeBuilder from "./Pages/ResumeBuilder";
+import ResumePage from "./Pages/ResumePage";
 
 function CandidateApp() {
   const location = useLocation();
@@ -36,6 +37,7 @@ function CandidateApp() {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/resumebuilder" element={<ResumeBuilder />} />
+        <Route path="/resumepage" element={<ResumePage />} />
       </Routes>
       {!hideFooter && <Footer />}
       <ToastContainer />

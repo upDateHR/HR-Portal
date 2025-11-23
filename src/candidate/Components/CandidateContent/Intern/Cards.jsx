@@ -23,10 +23,11 @@ const Cards = ({
         </div>
 
         <span
-          className={`px-3 py-1 text-xs rounded-full font-medium ${remote
+          className={`px-3 py-1 text-xs rounded-full font-medium ${
+            remote
               ? "bg-emerald-100 text-emerald-700"
               : "bg-slate-100 text-slate-700"
-            }`}
+          }`}
         >
           {remote ? "Remote" : "On-site"}
         </span>
@@ -75,19 +76,23 @@ const ApplyButton = ({ id }) => {
   const handleApply = async () => {
     try {
       setApplying(true);
-      const res = await API.post('/applications', { jobId: id });
-      if (res?.data?.success) alert('Application submitted successfully');
-      else alert('Application submitted');
+      const res = await API.post("/applications", { jobId: id });
+      if (res?.data?.success) alert("Application submitted successfully");
+      else alert("Application submitted");
     } catch (err) {
-      console.error('Apply failed:', err);
-      alert(err?.response?.data?.message || 'Failed to apply');
+      console.error("Apply failed:", err);
+      alert(err?.response?.data?.message || "Failed to apply");
     } finally {
       setApplying(false);
     }
   };
   return (
-    <button onClick={handleApply} disabled={applying} className="px-5 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-60">
-      {applying ? 'Applying...' : 'Apply Now'}
+    <button
+      onClick={handleApply}
+      disabled={applying}
+      className="px-5 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-60"
+    >
+      {applying ? "Applying..." : "Apply Now"}
     </button>
   );
 };
