@@ -58,13 +58,6 @@ function LandingPage() {
             >
               Login
             </Link>
-
-            <Link
-              to="/signup"
-              className="px-6 py-2 text-gray-800 font-medium hover:text-blue-600 transition-all"
-            >
-              Sign Up
-            </Link>
           </div>
         </div>
       </div>

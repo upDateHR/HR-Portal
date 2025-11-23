@@ -71,7 +71,7 @@ export default function Navbar() {
           </Link>
 
           {/* center - nav links (md+) */}
-          <div className="hidden md:flex md:items-center md:space-x-6">
+          {/* <div className="hidden md:flex md:items-center md:space-x-6">
             <Link className="font-bold text-2xl" to="." label="Home">
               Home
             </Link>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <Link to="settings" label="Settings">
               Settings
             </Link>
-          </div>
+          </div> */}
 
           {/* right - actions */}
           <div className="flex items-center gap-3">
@@ -166,12 +166,12 @@ export default function Navbar() {
         className={`${mobileOpen ? "block" : "hidden"} md:hidden`}
       >
         <div className="px-4 pt-4 pb-6 space-y-2 border-t border-gray-100">
-          <MobileLink to="." label="Home" />
+          {/* <MobileLink to="." label="Home" />
           <MobileLink to="dashboard" label="Dashboard" />
           <MobileLink to="jobs" label="My Jobs" />
           <MobileLink to="applicants" label="Applicants" />
           <MobileLink to="analytics" label="Analytics" />
-          <MobileLink to="settings" label="Settings" />
+          <MobileLink to="settings" label="Settings" /> */}
 
           <div className="pt-2">
             <Link
