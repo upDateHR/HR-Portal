@@ -111,15 +111,42 @@ export const updateCompany = async (data) => {
   return res.data;
 };
 
-// ==============================
-// Applicants
-// ==============================
+export const sendMessageToAssistant = async (message) => {
+  const res = await API.post('/assistant/chat', { message });
+  return res.data.reply;
+};
+
+/// Basic applicants
 export const getApplicants = async () => {
   const res = await API.get('/applicants');
   return res.data;
 };
 
-export const sendMessageToAssistant = async (message) => {
-    const res = await API.post('/assistant/chat', { message }); // Assumes /api/assistant/chat
-    return res.data.reply;
+export const updateApplicantStatus = async (id, status) => {
+  const res = await API.put(`/applicants/status/${id}`, { status });
+  return res.data;
 };
+
+// Hiring pipeline
+export const getHiringPipeline = async () => {
+  const res = await API.get('/hiring-pipeline');
+  return res.data;
+};
+
+export const updateHiringStage = async (id, status) => {
+  const res = await API.put(`/hiring-stage/${id}`, { status });
+  return res.data;
+};
+
+export const getApplicationsPerMonth = async () => {
+  const res = await API.get('/applications-per-month');
+  return res.data;
+};
+
+
+export const checkIfApplied = async (jobId) => {
+  const res = await API.get(`/applications/check/${jobId}`);
+  return res.data.applied;  // true/false
+};
+
+
