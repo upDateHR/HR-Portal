@@ -8,11 +8,11 @@ export default function JobHome() {
     <>
       <main className=" bg-gradient-to-b from-slate-50 to-white text-slate-900">
         <motion.section
-                  initial={{ opacity: 0, y: -40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                >
+          initial={{ opacity: 0, y: -40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <section className="max-w-7xl mx-auto px-10 py-2 lg:pt-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 items-center">
               {/* Left: Headline + CTA */}
@@ -57,9 +57,16 @@ export default function JobHome() {
           </section>
         </motion.section>
 
-        <div className="mb-10">
-          <JobCardGrid />
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-0"
+        >
+          <div className="mb-10">
+            <JobCardGrid />
+          </div>
+        </motion.div>
       </main>
     </>
   );

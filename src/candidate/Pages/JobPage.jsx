@@ -3,6 +3,7 @@ import JobHome from "../Components/CandidateContent/JobHome";
 import Footer from "../Components/Footer";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../../api";
+import { motion } from "framer-motion";
 
 const JobPage = () => {
   const { id } = useParams();
@@ -25,7 +26,6 @@ const JobPage = () => {
         // check if already applied
         const appliedRes = await API.get(`/applications/check/${id}`);
         setApplied(appliedRes.data.applied);
-
       } catch (err) {
         console.error("Failed to load job", err);
       } finally {
@@ -38,13 +38,12 @@ const JobPage = () => {
 
   const applyToJob = async () => {
     try {
-      const res = await API.post('/applications', { jobId: id });
+      const res = await API.post("/applications", { jobId: id });
 
       if (res.data.success) {
         setApplied(true);
         alert("Application submitted!");
       }
-
     } catch (err) {
       if (err.response?.status === 400) {
         alert("You already applied for this job.");
@@ -76,14 +75,16 @@ const JobPage = () => {
 
             <div className="prose max-w-none mb-4">{job.description}</div>
 
-                        <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <button
                 onClick={applyToJob}
                 disabled={applied}
                 className={`px-4 py-2 rounded text-white 
-                  ${applied
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-700"}
+                  ${
+                    applied
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-700"
+                  }
                 `}
               >
                 {applied ? "Already Applied ✔" : "Apply"}
@@ -96,7 +97,6 @@ const JobPage = () => {
                 Go to Dashboard
               </button>
             </div>
-
           </div>
         ) : (
           <div className="py-10 text-center">Job not found.</div>
@@ -107,7 +107,6 @@ const JobPage = () => {
 
   return (
     <>
-    
       <JobHome />
     </>
   );
