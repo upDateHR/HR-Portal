@@ -1,6 +1,8 @@
 import React from "react";
+import API from "../../../../api";
 
 const Cards = ({
+  id,
   title,
   company,
   location,
@@ -37,7 +39,7 @@ const Cards = ({
         {skills.map((s, i) => (
           <span
             key={i}
-            className="px-3 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-full"
+            className="px-3 py-1 text-xs bg-purple-50 text-purple-700 rounded-full"
           >
             {s}
           </span>
@@ -73,6 +75,7 @@ const Cards = ({
 // small self-contained ApplyButton so both JobCards and Intern Cards can reuse
 const ApplyButton = ({ id }) => {
   const [applying, setApplying] = React.useState(false);
+
   const handleApply = async () => {
     try {
       setApplying(true);
@@ -86,11 +89,12 @@ const ApplyButton = ({ id }) => {
       setApplying(false);
     }
   };
+
   return (
     <button
       onClick={handleApply}
       disabled={applying}
-      className="px-5 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-60"
+      className="px-5 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 transition disabled:opacity-60"
     >
       {applying ? "Applying..." : "Apply Now"}
     </button>

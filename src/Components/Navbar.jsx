@@ -65,9 +65,11 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* brand */}
           <Link to="/" className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-indigo-600">
+            {/* <h1 className="text-2xl font-bold text-indigo-600">
               Iam<span className="text-gray-800">HR</span>
-            </h1>
+            </h1> */}
+            <img className="h-10" src="/hr.png" alt="" />
+            {/* <img className="h-10" src="/hr1.png" alt="" /> */}
           </Link>
 
           {/* center - nav links (md+) */}
@@ -101,7 +103,7 @@ export default function Navbar() {
             {/* Login button */}
             <Link
               to="signup"
-              className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-200 text-sm font-medium"
+              className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-indigo-200 text-sm font-medium"
             >
               Sign Up
             </Link>

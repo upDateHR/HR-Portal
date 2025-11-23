@@ -31,7 +31,7 @@ const JobPage = () => {
       <div className="max-w-4xl mx-auto p-6">
         <button
           onClick={() => navigate("/jobpage")}
-          className="text-sm text-indigo-600 mb-4"
+          className="text-sm text-purple-600 mb-4"
         >
           &larr; Back to jobs
         </button>
@@ -50,7 +50,7 @@ const JobPage = () => {
                 onClick={(e) => {
                   e.preventDefault(); /* allow applying from card */
                 }}
-                className="px-4 py-2 bg-indigo-600 text-white rounded"
+                className="px-4 py-2 bg-purple-600 text-white rounded"
               >
                 Apply
               </a>
@@ -75,6 +75,7 @@ const JobPage = () => {
 
   return (
     <>
+    
       <JobHome />
     </>
   );

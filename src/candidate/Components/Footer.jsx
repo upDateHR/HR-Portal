@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <>
       <div>
-        <div className="bg-gradient-to-r from-indigo-600 to-violet-500 pt-5 pb-2">
+        <div className="bg-gradient-to-r from-purple-600 to-violet-500 pt-5 pb-2">
           <div className="flex justify-around items-start text-white">
             <div>
               <h1 className="text-1xl font-bold">IamHR</h1>
