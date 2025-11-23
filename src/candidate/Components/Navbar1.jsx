@@ -130,7 +130,7 @@ export default function Navbar() {
             <Link to="analytics" className={activeClass("/candidate/analytics")} aria-label="Analytics">
               Analytics
             </Link>
-            <Link to="resumebuilder" className={activeClass("/candidate/resumebuilder")} aria-label="ResumeBuilder">
+            <Link to="resumepage" className={activeClass("/candidate/resumepage")} aria-label="ResumePage">
               Resume Maker
             </Link>
             <Link to="settings" className={activeClass("/candidate/settings")} aria-label="Settings">

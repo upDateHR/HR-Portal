@@ -185,6 +185,8 @@ export default function ResumeBuilder() {
   );
 
   return (
+    <>
+
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-gray-900">
       {/* Sticky top bar */}
       <div className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -707,5 +709,6 @@ export default function ResumeBuilder() {
         button, input, textarea, select { display: none !important; }
       }`}</style>
     </div>
+    </>
   );
 }
