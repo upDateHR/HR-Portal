@@ -7,24 +7,53 @@ import API from "../../api";
 const JobPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [applied, setApplied] = useState(false);
 
   useEffect(() => {
     if (!id) return;
+
     const load = async () => {
       setLoading(true);
+
       try {
         const res = await API.get(`/jobs/public/${id}`);
         setJob(res.data.job);
+
+        // check if already applied
+        const appliedRes = await API.get(`/applications/check/${id}`);
+        setApplied(appliedRes.data.applied);
+
       } catch (err) {
         console.error("Failed to load job", err);
       } finally {
         setLoading(false);
       }
     };
+
     load();
   }, [id]);
+
+  const applyToJob = async () => {
+    try {
+      const res = await API.post('/applications', { jobId: id });
+
+      if (res.data.success) {
+        setApplied(true);
+        alert("Application submitted!");
+      }
+
+    } catch (err) {
+      if (err.response?.status === 400) {
+        alert("You already applied for this job.");
+        setApplied(true);
+      } else {
+        alert("Error submitting application");
+      }
+    }
+  };
 
   if (id) {
     return (
@@ -35,6 +64,7 @@ const JobPage = () => {
         >
           &larr; Back to jobs
         </button>
+
         {loading ? (
           <div className="py-10 text-center">Loading job...</div>
         ) : job ? (
@@ -43,28 +73,30 @@ const JobPage = () => {
             <div className="text-sm text-gray-600 mb-4">
               {job.companyName} {job.location ? `• ${job.location}` : ""}
             </div>
+
             <div className="prose max-w-none mb-4">{job.description}</div>
-            <div className="flex items-center gap-3">
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault(); /* allow applying from card */
-                }}
-                className="px-4 py-2 bg-purple-600 text-white rounded"
+
+                        <div className="flex items-center gap-3">
+              <button
+                onClick={applyToJob}
+                disabled={applied}
+                className={`px-4 py-2 rounded text-white 
+                  ${applied
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-indigo-600 hover:bg-indigo-700"}
+                `}
               >
-                Apply
-              </a>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate("/candidate/dashboard");
-                }}
+                {applied ? "Already Applied ✔" : "Apply"}
+              </button>
+
+              <button
+                onClick={() => navigate("/candidate/dashboard")}
                 className="px-4 py-2 border rounded"
               >
                 Go to Dashboard
-              </a>
+              </button>
             </div>
+
           </div>
         ) : (
           <div className="py-10 text-center">Job not found.</div>
