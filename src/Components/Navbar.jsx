@@ -68,8 +68,8 @@ export default function Navbar() {
             {/* <h1 className="text-2xl font-bold text-indigo-600">
               Iam<span className="text-gray-800">HR</span>
             </h1> */}
-            <img className="h-10" src="/hr.png" alt="" />
-            {/* <img className="h-10" src="/hr1.png" alt="" /> */}
+            {/* <img className="h-10" src="/hr.png" alt="" /> */}
+            <img className="h-10" src="/hr1.png" alt="" />
           </Link>
 
           {/* center - nav links (md+) */}

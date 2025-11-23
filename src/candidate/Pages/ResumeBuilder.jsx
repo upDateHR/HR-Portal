@@ -177,7 +177,7 @@ export default function ResumeBuilder() {
   const SectionHeader = ({ icon: Icon, title, action }) => (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <Icon className="h-5 w-5 text-blue-600" />
+        <Icon className="h-5 w-5 text-purple-600" />
         <h3 className="font-semibold">{title}</h3>
       </div>
       {action}
@@ -190,7 +190,7 @@ export default function ResumeBuilder() {
       <div className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-8 py-3 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2">
-            <SparklesIcon className="h-6 w-6 text-blue-600" />
+            <SparklesIcon className="h-6 w-6 text-purple-600" />
             <h2 className="text-lg sm:text-xl font-bold">Resume Builder</h2>
 
             <span className="hidden sm:inline text-xs text-gray-500">
@@ -216,9 +216,9 @@ export default function ResumeBuilder() {
             <button
               onClick={exportPDF}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm text-white 
-               bg-gradient-to-r from-blue-600 to-indigo-600 
-               hover:from-blue-700 hover:to-indigo-700 active:scale-95
-               shadow-md shadow-blue-500/20 transition flex-shrink-0"
+               bg-gradient-to-r from-violet-600 to-purple-600 
+               hover:from-violet-700 hover:to-purple-700 active:scale-95
+               shadow-md shadow-purple-500/20 transition flex-shrink-0"
             >
               <PrinterIcon className="h-4 w-4" />
               <span className="hidden sm:inline">Export</span>
@@ -268,7 +268,7 @@ export default function ResumeBuilder() {
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="e.g., Rohit "
                 />
               </div>
@@ -280,7 +280,7 @@ export default function ResumeBuilder() {
                 <input
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="e.g., Web Developer"
                 />
               </div>
@@ -292,7 +292,7 @@ export default function ResumeBuilder() {
                 <input
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="Email | Phone | LinkedIn"
                 />
               </div>
@@ -305,7 +305,7 @@ export default function ResumeBuilder() {
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
                   rows={4}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                   placeholder="Brief overview of your experience, strengths, and impact."
                 />
               </div>
@@ -340,7 +340,7 @@ export default function ResumeBuilder() {
                           onChange={(e) =>
                             updateExperience(exp.id, "role", e.target.value)
                           }
-                          className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                           placeholder="Role (e.g., Senior Product Designer)"
                         />
                         <input
@@ -348,7 +348,7 @@ export default function ResumeBuilder() {
                           onChange={(e) =>
                             updateExperience(exp.id, "company", e.target.value)
                           }
-                          className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                           placeholder="Company"
                         />
                       </div>
@@ -357,7 +357,7 @@ export default function ResumeBuilder() {
                         onChange={(e) =>
                           updateExperience(exp.id, "dates", e.target.value)
                         }
-                        className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                         placeholder="Dates (e.g., 2021 – Present)"
                       />
                     </div>
@@ -379,7 +379,7 @@ export default function ResumeBuilder() {
                           onChange={(e) =>
                             updateExpBullet(exp.id, i, e.target.value)
                           }
-                          className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                           placeholder="Quantified impact (e.g., Increased conversion by 12%)"
                         />
                         <button
@@ -429,7 +429,7 @@ export default function ResumeBuilder() {
                       onChange={(e) =>
                         updateEducation(ed.id, "school", e.target.value)
                       }
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                       placeholder="School / University"
                     />
                     <input
@@ -437,7 +437,7 @@ export default function ResumeBuilder() {
                       onChange={(e) =>
                         updateEducation(ed.id, "dates", e.target.value)
                       }
-                      className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                       placeholder="Dates (e.g., 2014 – 2018)"
                     />
                   </div>
@@ -447,7 +447,7 @@ export default function ResumeBuilder() {
                     onChange={(e) =>
                       updateEducation(ed.id, "degree", e.target.value)
                     }
-                    className="w-full border rounded-lg px-3 py-2 mt-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border rounded-lg px-3 py-2 mt-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                     placeholder="Degree (e.g., B.A., Graphic & Interaction Design)"
                   />
 
@@ -489,11 +489,11 @@ export default function ResumeBuilder() {
                     }
                   }}
                   placeholder="Type a skill and press Ent er"
-                  className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
                 <button
                   onClick={quickAddSkill}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm transition"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md text-sm transition"
                 > 
                   Add
                 </button>
@@ -505,7 +505,7 @@ export default function ResumeBuilder() {
                     <input
                       value={s}
                       onChange={(e) => updateSkill(i, e.target.value)}
-                      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                     />
                     <button
                       onClick={() => removeSkill(i)}
