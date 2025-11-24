@@ -1,6 +1,8 @@
 import React from "react";
+import API from "../../../../api";
 
 const Cards = ({
+  id,
   title,
   company,
   location,
@@ -23,10 +25,11 @@ const Cards = ({
         </div>
 
         <span
-          className={`px-3 py-1 text-xs rounded-full font-medium ${remote
+          className={`px-3 py-1 text-xs rounded-full font-medium ${
+            remote
               ? "bg-emerald-100 text-emerald-700"
               : "bg-slate-100 text-slate-700"
-            }`}
+          }`}
         >
           {remote ? "Remote" : "On-site"}
         </span>
@@ -36,7 +39,7 @@ const Cards = ({
         {skills.map((s, i) => (
           <span
             key={i}
-            className="px-3 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-full"
+            className="px-3 py-1 text-xs bg-purple-50 text-purple-700 rounded-full"
           >
             {s}
           </span>
@@ -72,22 +75,28 @@ const Cards = ({
 // small self-contained ApplyButton so both JobCards and Intern Cards can reuse
 const ApplyButton = ({ id }) => {
   const [applying, setApplying] = React.useState(false);
+
   const handleApply = async () => {
     try {
       setApplying(true);
-      const res = await API.post('/applications', { jobId: id });
-      if (res?.data?.success) alert('Application submitted successfully');
-      else alert('Application submitted');
+      const res = await API.post("/applications", { jobId: id });
+      if (res?.data?.success) alert("Application submitted successfully");
+      else alert("Application submitted");
     } catch (err) {
-      console.error('Apply failed:', err);
-      alert(err?.response?.data?.message || 'Failed to apply');
+      console.error("Apply failed:", err);
+      alert(err?.response?.data?.message || "Failed to apply");
     } finally {
       setApplying(false);
     }
   };
+
   return (
-    <button onClick={handleApply} disabled={applying} className="px-5 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-60">
-      {applying ? 'Applying...' : 'Apply Now'}
+    <button
+      onClick={handleApply}
+      disabled={applying}
+      className="px-5 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 transition disabled:opacity-60"
+    >
+      {applying ? "Applying..." : "Apply Now"}
     </button>
   );
 };

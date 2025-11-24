@@ -134,10 +134,7 @@ const App = ({ initialView }) => {
         {renderView()}
       </main>
 
-      {/* FOOTER */}
-      <footer className="mt-16 text-center text-xs text-gray-400 p-4 border-t border-gray-100">
-        © {new Date().getFullYear()} I am HR Portal. All rights reserved.
-      </footer>
+      
     </div>
   );
 };

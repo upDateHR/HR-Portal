@@ -1,71 +1,121 @@
-import React from "react";
-import "./Footer.css";
+import React from 'react';
+import { Mail, Phone, Send, Instagram, Linkedin, Globe, MonitorPlay } from 'lucide-react'; 
+import { Link } from 'react-router-dom';
+
+// Consistent color definitions based on Upstox theme
+const UPSTOX_PURPLE = 'purple-700';
+const UPSTOX_GRADIENT_START = 'from-purple-700';
+const UPSTOX_GRADIENT_END = 'to-violet-600';
 
 const Footer = () => {
-  return (
-    <>
-      <div>
-        <div className="bg-gradient-to-r from-indigo-600 to-violet-500 pt-5 pb-2">
-          <div className="flex justify-around items-start text-white">
-            <div>
-              <h1 className="text-1xl font-bold">IamHR</h1>
-              <p>Build with❤️in India for the world</p>
+  // Navigation Links Data
+  const links = [
+    { title: "About Us", items: [
+      { label: "We're hiring", to: "/about/careers" },
+      { label: "Hire interns for your company", to: "/hr/hire-interns" },
+      { label: "Post a Job", to: "/hr/post-job" },
+    ]},
+    { title: "Team Diary", items: [
+      { label: "Blog", to: "/blog" },
+      { label: "Our Services", to: "/services" },
+    ]},
+    { title: "Legal", items: [
+      { label: "Terms & Conditions", to: "/terms" },
+      { label: "Privacy", to: "/privacy" },
+      { label: "Contact Us", to: "/contact" },
+    ]},
+    { title: "Opportunities", items: [
+      { label: "Internships", to: "/internshippage" },
+      { label: "Jobs", to: "/jobpage" },
+      { label: "Courses", to: "/courses" },
+    ]},
+  ];
 
-              <h3>Stay Connected</h3>
-              <p>iamhr@gmail.com</p>
-              <p>+91-9999999999</p>
+  const SocialIcon = ({ Icon, label, href, hoverColor }) => (
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className={`text-purple-200 hover:text-white transition duration-200 ${hoverColor}`}
+      aria-label={label}
+    >
+      <Icon className="h-6 w-6" />
+    </a>
+  );
+
+  return (
+    // Main Footer Container with Branded Gradient
+    <footer className="mt-8 w-full">
+      {/* REDUCED PADDING: pt-8 pb-4 instead of pt-12 pb-6 */}
+      <div className={`bg-gradient-to-r ${UPSTOX_GRADIENT_START} ${UPSTOX_GRADIENT_END} pt-8 pb-4 text-white shadow-2xl`}>
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-8 lg:px-12">
+          
+          {/* Main Content Grid: Reduced vertical gap (gap-6) and padding (pb-6) */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8 text-xs border-b border-purple-500/50 pb-6 mb-4">
+            
+            {/* Column 1: Branding & Contact - Reduced spacing */}
+            <div className="col-span-2 md:col-span-1 space-y-2">
+              {/* Reduced font size for IamHR text */}
+              <h1 className="text-xl font-bold">
+                <span className={`text-white`}>Iam</span>HR
+              </h1>
+              <p className="text-[10px] font-light text-purple-100 mt-0.5">
+                Built with ❤️ in India for the world.
+              </p>
+
+              <h3 className="text-sm font-semibold pt-1">Stay Connected</h3>
+              <div className="space-y-1">
+                <div className="flex items-center space-x-1 text-purple-100">
+                  <Mail className="h-3 w-3" />
+                  <span>iamhr@gmail.com</span>
+                </div>
+                <div className="flex items-center space-x-1 text-purple-100">
+                  <Phone className="h-3 w-3" />
+                  <span>+91-9999999999</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <h1>About Us</h1>
-              <p>We're hiring</p>
-              <p>Hire interns for your company</p>
-              <p>Post a Job</p>
-            </div>
-            <div>
-              <h1>Team Diary</h1>
-              <p>Blog</p>
-              <p>Our Services</p>
-            </div>
-            <div>
-              <h1>Terms & Conditions</h1>
-              <p>Privacy</p>
-              <p>Contact Us</p>
-            </div>
-            <div>
-              <h1>Apply</h1>
-              <p>Internships</p>
-              <p>Jobs</p>
-              <p>Courses</p>
-            </div>
+
+            {/* Navigation Columns (Reduced text size and spacing) */}
+            {links.map((section, index) => (
+              <div key={index} className="space-y-2">
+                <h1 className="text-sm font-semibold border-b border-purple-400/50 pb-0.5 mb-2">{section.title}</h1>
+                <ul className="space-y-1">
+                  {section.items.map((item) => (
+                    <li key={item.label}>
+                      <Link 
+                        to={item.to} 
+                        className="text-purple-100 hover:text-white transition duration-150 text-xs"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
 
-          <div className="flex justify-between items-start px-12 py-3">
-            <div>
-              <ul className="flex gap-4 text-2xl text-white">
-                <li className="hover:text-blue-500 transition">
-                  <i className="fa-brands fa-telegram"></i>
-                </li>
-                <li className="hover:text-pink-600 transition">
-                  <i className="fa-brands fa-instagram"></i>
-                </li>
-                <li className="hover:text-blue-600 transition">
-                  <i className="fa-brands fa-linkedin"></i>
-                </li>
-                <li className="hover:text-green-600 transition">
-                  <i className="fa-solid fa-earth-americas"></i>
-                </li>
-                <li className="hover:text-red-600 transition">
-                  <i className="fa-brands fa-youtube"></i>
-                </li>
-              </ul>
+          {/* Bottom Section: Social Icons & Copyright */}
+          <div className="flex flex-col sm:flex-row justify-between items-center pt-2">
+            
+            {/* Social Icons (Reduced size) */}
+            <div className="flex flex-wrap justify-center sm:justify-start gap-4 mb-3 sm:mb-0">
+              <SocialIcon Icon={Send} label="Telegram" href="#" hoverColor="hover:text-cyan-300" />
+              <SocialIcon Icon={Instagram} label="Instagram" href="#" hoverColor="hover:text-pink-300" />
+              <SocialIcon Icon={Linkedin} label="LinkedIn" href="#" hoverColor="hover:text-blue-400" />
+              <SocialIcon Icon={Globe} label="Website" href="#" hoverColor="hover:text-lime-300" />
+              <SocialIcon Icon={MonitorPlay} label="YouTube" href="#" hoverColor="hover:text-red-400" />
             </div>
-            <div className="flex justify-center items-center text-white">
-              <p>Copyright © 2025 upDate Education Technology Pvt Ltd</p>
+            
+            {/* Copyright: Clean, centered on mobile */}
+            <div className="text-[10px] text-purple-200 text-center sm:text-right">
+              <p>Copyright © {new Date().getFullYear()} IamHR Education Technology Pvt Ltd</p>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </footer>
   );
 };
 

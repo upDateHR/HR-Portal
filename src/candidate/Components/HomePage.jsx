@@ -35,7 +35,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 {/* Primary CTA: Uses Branded Gradient */}
                 <a
-                  href="#explore"
+                  href="/candidate/jobpage"
                   className={`inline-flex items-center gap-3 px-6 py-3 rounded-xl 
                     bg-gradient-to-r ${UPSTOX_GRADIENT_START} ${UPSTOX_GRADIENT_END} text-white 
                     shadow-xl shadow-purple-300/50 
@@ -48,7 +48,7 @@ export default function HomePage() {
 
                 {/* Secondary CTA: Outline Style */}
                 <a
-                  href="#how-it-works"
+                  href=""
                   className={`inline-flex items-center justify-center px-6 py-3 rounded-xl 
                     border border-gray-300 text-gray-700 bg-white 
                     shadow-sm hover:bg-purple-50 hover:border-${UPSTOX_TEXT_PURPLE} hover:text-${UPSTOX_TEXT_PURPLE}
@@ -149,7 +149,7 @@ export default function HomePage() {
                   your career!
                 </p>
   
-                <Link to="/signup">
+                <Link to="#">
                   {/* Explore Skills Button: Uses Branded Gradient */}
                   <button 
                     className={`mt-4 px-6 py-3 rounded-xl 
@@ -193,7 +193,7 @@ export default function HomePage() {
                 <li><span className={`text-${UPSTOX_TEXT_PURPLE} font-extrabold mr-2`}>•</span> Perfect for freshers and first-time job seekers</li>
               </ul>
 
-              <Link to="/login">
+              <Link to="/candidate/resumepage">
                 {/* Build Resume Button: Uses Branded Gradient */}
                 <a
                   href="#explore"

@@ -48,7 +48,7 @@ const Login = ({ setCurrentView }) => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-md w-full">
         <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">
-          Employer Login
+          Login
         </h1>
 
         <p className="text-center text-gray-500 mb-6">

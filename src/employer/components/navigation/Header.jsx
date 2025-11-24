@@ -113,8 +113,8 @@ const Header = ({
     // UI REFINEMENT: Increased padding, professional shadow (sticky + shadow-lg)
     <div className="flex justify-between items-center px-6 py-4 bg-white sticky top-0 z-20 shadow-lg">
       {/* FONT REVERT: Original font sizing/weight maintained */}
-      <h1 className="text-2xl font-bold text-indigo-600">
-        Iam<span className="text-gray-800">HR</span>
+      <h1 className="flex items-center gap-3" >
+        <img className="h-10" src="/hr1.png" alt="Job Portal Logo" />
       </h1>
 
       {/* NAVIGATION: Added transition/smoothness */}

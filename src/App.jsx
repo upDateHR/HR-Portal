@@ -9,18 +9,23 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import CandidateRegister from "./candidate/Components/Candidate.jsx";
 import CompanyRegister from "./components/Register.jsx";
 import MainHomePage from "./MainHomePage.jsx";
-// <<<<<<< HEAD
-import Footer from "./candidate/Components/Footer.jsx";
-
+import Footer from "./candidate/Components/Footer.jsx"; // Universal Footer Import
 import ChatWidget from "./components/ChatWidget.jsx";
-// >>>>>>> 4ea7dc1a30a24df122223876e3cef9356f2e3264
+
+// Consistent color definitions
+const UPSTOX_TEXT_PURPLE = 'purple-600';
+const UPSTOX_GRADIENT_START = 'from-purple-600';
+const UPSTOX_GRADIENT_END = 'to-violet-500';
+
 
 function LandingPage() {
   return (
+    // NOTE: The structural wrapper and Footer were removed from LandingPage 
+    // to prevent duplication, but the rest of the content remains.
     <>
       <Navbar />
       <MainHomePage />
-      <div className=" bg-linear-to-br from-blue-50 to-white flex flex-col items-center px-6 pt-10">
+      <div className="bg-linear-to-br from-purple-50 to-white flex flex-col items-center px-6 pt-10">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
           Find Internships & Hire Talent
         </h1>
@@ -34,7 +39,7 @@ function LandingPage() {
           <Link
             to="/signup"
             state={{ role: "candidate" }}
-            className="px-8 py-3  text-white rounded-lg shadow-lg text-center text-lg font-medium transition-all bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4"
+            className={`px-8 py-3 text-white rounded-lg shadow-lg text-center text-lg font-medium transition-all bg-gradient-to-r ${UPSTOX_GRADIENT_START} ${UPSTOX_GRADIENT_END} hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300`}
           >
             I'm Looking for Internships
           </Link>
@@ -42,7 +47,7 @@ function LandingPage() {
           <Link
             to="/signup"
             state={{ role: "company" }}
-            className="px-8 py-3 border border-violet-600 text-violet-600 rounded-lg hover:bg-violet-50 shadow-lg text-center text-lg font-medium transition-all"
+            className={`px-8 py-3 border border-${UPSTOX_TEXT_PURPLE} text-${UPSTOX_TEXT_PURPLE} rounded-lg hover:bg-purple-50 shadow-lg text-center text-lg font-medium transition-all`}
           >
             I Want to Hire Interns
           </Link>
@@ -54,67 +59,67 @@ function LandingPage() {
           <div className="flex gap-4">
             <Link
               to="/login"
-              className="px-6 py-2 text-gray-800 font-medium hover:text-blue-600 transition-all"
+              className={`px-6 py-2 text-gray-800 font-medium hover:text-${UPSTOX_TEXT_PURPLE} transition-all`}
             >
               Login
             </Link>
           </div>
         </div>
       </div>
-
-      <Footer />
-      {/* <<<<<<< HEAD
-      
-=======
-
-      {/* 🟣 Chatbot available on Landing page */}
-      {/* <ChatWidget /> */}
-      {/* >>>>>>> 4ea7dc1a30a24df122223876e3cef9356f2e3264 */}
+      {/* Footer component removed from here as the parent App handles it universally */}
     </>
   );
 }
 
 function App() {
   return (
-    <>
-      {/* 🟣 Chatbot available on ALL pages (before & after login) */}
+    // CRITICAL: Added flex structure to ensure the footer sticks to the bottom
+    <div className="min-h-screen flex flex-col"> 
+      
+      {/* 🟣 Chatbot is universal and stays outside the main content wrapper */}
       <ChatWidget />
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
+      {/* Main content area that grows to push the footer down */}
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
 
-        {/* Auth Pages */}
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+          {/* Auth Pages */}
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
 
-        {/* Registration Pages */}
-        <Route path="/candidate/signup" element={<CandidateRegister />} />
-        <Route path="/company/signup" element={<CompanyRegister />} />
+          {/* Registration Pages */}
+          <Route path="/candidate/signup" element={<CandidateRegister />} />
+          <Route path="/company/signup" element={<CompanyRegister />} />
 
-        {/* Employer Portal (protected) */}
-        <Route
-          path="/company/*"
-          element={
-            <ProtectedRoute allowedRole={"employer"}>
-              <EmployerApp />
-            </ProtectedRoute>
-          }
-        />
+          {/* Employer Portal (protected) */}
+          <Route
+            path="/company/*"
+            element={
+              <ProtectedRoute allowedRole={"employer"}>
+                <EmployerApp />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Candidate Portal (protected) */}
-        <Route
-          path="/candidate/*"
-          element={
-            <ProtectedRoute allowedRole={"candidate"}>
-              <CandidateApp />
-            </ProtectedRoute>
-          }
-        />
+          {/* Candidate Portal (protected) */}
+          <Route
+            path="/candidate/*"
+            element={
+              <ProtectedRoute allowedRole={"candidate"}>
+                <CandidateApp />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </>
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
+
+      {/* 🚀 Universal Footer Added Here, visible on ALL routes */}
+      <Footer />
+    </div>
   );
 }
 
