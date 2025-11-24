@@ -20,7 +20,7 @@ function LandingPage() {
     <>
       <Navbar />
       <MainHomePage />
-      <div className=" bg-linear-to-br from-blue-50 to-white flex flex-col items-center px-6 pt-10">
+      <div className=" bg-linear-to-br from-purple-50 to-white flex flex-col items-center px-6 pt-10">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
           Find Internships & Hire Talent
         </h1>
@@ -34,7 +34,7 @@ function LandingPage() {
           <Link
             to="/signup"
             state={{ role: "candidate" }}
-            className="px-8 py-3  text-white rounded-lg shadow-lg text-center text-lg font-medium transition-all bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 focus:outline-none focus:ring-4"
+            className="px-8 py-3  text-white rounded-lg shadow-lg text-center text-lg font-medium transition-all bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4"
           >
             I'm Looking for Internships
           </Link>
@@ -54,7 +54,7 @@ function LandingPage() {
           <div className="flex gap-4">
             <Link
               to="/login"
-              className="px-6 py-2 text-gray-800 font-medium hover:text-blue-600 transition-all"
+              className="px-6 py-2 text-gray-800 font-medium hover:text-purple-600 transition-all"
             >
               Login
             </Link>
