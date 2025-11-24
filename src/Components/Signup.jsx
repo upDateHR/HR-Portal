@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function Signup() {
   const [selected, setSelected] = useState(null);
@@ -12,13 +15,15 @@ export default function Signup() {
       key: "candidate",
       title: "Sign up as a Candidate",
       desc: "Compete, learn, and apply for jobs and internships",
-      icon: "fa-solid fa-user",
+      // icon: "fa-solid fa-user",
+      icon: faUser,
     },
     {
       key: "recruiter",
       title: "Sign up as a Recruiter",
       desc: "Host competitions, hire talent, and offer career opportunities",
-      icon: "fa-solid fa-magnifying-glass",
+      // icon: "fa-solid fa-magnifying-glass",
+       icon: faMagnifyingGlass,
     },
   ];
 
@@ -62,7 +67,8 @@ export default function Signup() {
                   onClick={() => setSelected(key)}
                 >
                   <div className={`icon-box ${active ? "active-icon" : ""}`}>
-                    <i className={icon}></i>
+                    <FontAwesomeIcon icon={icon} className="fa-icon" />
+
                   </div>
                   <div className="option-text">
                     <h3>{title}</h3>

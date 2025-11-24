@@ -59,12 +59,12 @@ const Footer = () => {
               <h1 className="text-xl font-bold">
                 <span className={`text-white`}>Iam</span>HR
               </h1>
-              <p className="text-[10px] font-light text-purple-100 mt-0.5">
+              <p className="text-[14px] font-light text-purple-100 mt-0.5">
                 Built with ❤️ in India for the world.
               </p>
 
-              <h3 className="text-sm font-semibold pt-1">Stay Connected</h3>
-              <div className="space-y-1">
+              <h3 className="text-[16px] font-semibold pt-1">Stay Connected</h3>
+              <div className="space-y-1 text-[14px]">
                 <div className="flex items-center space-x-1 text-purple-100">
                   <Mail className="h-3 w-3" />
                   <span>iamhr@gmail.com</span>
@@ -79,13 +79,13 @@ const Footer = () => {
             {/* Navigation Columns (Reduced text size and spacing) */}
             {links.map((section, index) => (
               <div key={index} className="space-y-2">
-                <h1 className="text-sm font-semibold border-b border-purple-400/50 pb-0.5 mb-2">{section.title}</h1>
+                <h1 className="text-[16px] font-semibold border-b border-purple-400/50 pb-0.5 mb-2">{section.title}</h1>
                 <ul className="space-y-1">
                   {section.items.map((item) => (
                     <li key={item.label}>
                       <Link 
                         to={item.to} 
-                        className="text-purple-100 hover:text-white transition duration-150 text-xs"
+                        className="text-purple-100 hover:text-white transition duration-150 text-[14px]"
                       >
                         {item.label}
                       </Link>
@@ -101,15 +101,15 @@ const Footer = () => {
             
             {/* Social Icons (Reduced size) */}
             <div className="flex flex-wrap justify-center sm:justify-start gap-4 mb-3 sm:mb-0">
-              <SocialIcon Icon={Send} label="Telegram" href="#" hoverColor="hover:text-cyan-300" />
-              <SocialIcon Icon={Instagram} label="Instagram" href="#" hoverColor="hover:text-pink-300" />
-              <SocialIcon Icon={Linkedin} label="LinkedIn" href="#" hoverColor="hover:text-blue-400" />
-              <SocialIcon Icon={Globe} label="Website" href="#" hoverColor="hover:text-lime-300" />
-              <SocialIcon Icon={MonitorPlay} label="YouTube" href="#" hoverColor="hover:text-red-400" />
+              <SocialIcon Icon={Send} label="Telegram" href="https://t.me/update_edu" hoverColor="hover:text-cyan-300" />
+              <SocialIcon Icon={Instagram} label="Instagram" href="https://www.instagram.com/update_edu/?igsh=bDF3eDUxOG1wbHZ2" hoverColor="hover:text-pink-300" />
+              <SocialIcon Icon={Linkedin} label="LinkedIn" href="https://www.linkedin.com/company/updateedu/posts/?feedView=all&viewAsMember=true" hoverColor="hover:text-blue-400" />
+              <SocialIcon Icon={Globe} label="Website" href="https://www.updats.in/" hoverColor="hover:text-lime-300" />
+              {/* <SocialIcon Icon={MonitorPlay} label="YouTube" href="#" hoverColor="hover:text-red-400" /> */}
             </div>
             
             {/* Copyright: Clean, centered on mobile */}
-            <div className="text-[10px] text-purple-200 text-center sm:text-right">
+            <div className="text-[14px] text-purple-200 text-center sm:text-right">
               <p>Copyright © {new Date().getFullYear()} IamHR Education Technology Pvt Ltd</p>
             </div>
           </div>

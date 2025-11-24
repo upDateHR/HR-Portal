@@ -94,8 +94,6 @@ const MainHomePage = () => {
           </section>
         </motion.section>
 
-        
-
         {/* Section 2 */}
         <motion.div
           initial={{ opacity: 0, y: 80 }}
@@ -263,7 +261,7 @@ const MainHomePage = () => {
           >
             <section className="max-w-7xl mx-auto px-10 py-10">
               <div className="space-y-8">
-                <h1 className="text-3xl font-bold text-slate-900">
+                <h1 className="text-3xl text-start font-bold text-slate-900">
                   Popular certification courses
                 </h1>
 
@@ -323,15 +321,15 @@ const MainHomePage = () => {
             <section className="max-w-7xl mx-auto px-10 py-10">
               <div className="flex flex-col lg:flex-row items-center gap-12 rounded-2xl shadow-xl border border-slate-200 p-8 bg-white/60 backdrop-blur bg-[url('https://internshala.com/static/images/homepage/resume_builder_v1/r1920.webp')] bg-contain bg-right bg-no-repeat transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl">
                 <div className="space-y-2 flex flex-col justify-start text-start">
-                  <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+                  <h1 className="text-[30px] font-bold tracking-tight text-slate-700">
                     No resume? No problem.
                   </h1>
-                  <p className="text-lg font-medium text-slate-600">
+                  <p className="text-lg font-medium text-slate-700">
                     Let us help you create a polished resume or improve the one
                     you already have.
                   </p>
 
-                  <ul className="space-y-2 text-slate-700 font-medium list-none ">
+                  <ul className="space-y-2 text-lg text-slate-700 font-medium list-none ">
                     <li>🌀 AI-powered resume builder</li>
                     <li>🌀 Intelligent feedback engine</li>
                     <li>🌀 Perfect for freshers and first-time job seekers</li>
@@ -351,56 +349,58 @@ const MainHomePage = () => {
           </motion.div>
 
           <motion.div
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-9"
-        >
-          <section className="max-w-7xl mx-auto px-6 py-10 lg:py-14 flex justify-center">
-            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-6xl">
-              {/* Item 1 */}
-              <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <span className="flex h-14 w-16 items-center justify-center rounded-lg bg-purple-50 text-purple-600 text-lg font-semibold">
-                  ★
-                </span>
-                <div className="flex flex-col text-left">
-                  <h3 className="text-2xl font-semibold text-slate-800">
-                    CV points
-                  </h3>
-                  <p className="text-lg text-slate-800">
-                    Earn verified achievements
-                  </p>
-                </div>
-              </li>
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-9"
+          >
+            <section className="max-w-7xl mx-auto px-6 py-10 lg:py-14 flex justify-center">
+              <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-6xl">
+                {/* Item 1 */}
+                <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                  <span className="flex h-14 w-16 items-center justify-center rounded-lg bg-purple-50 text-purple-600 text-lg font-semibold">
+                    ★
+                  </span>
+                  <div className="flex flex-col text-left">
+                    <h3 className="text-2xl font-semibold text-slate-800">
+                      CV points
+                    </h3>
+                    <p className="text-lg text-slate-800">
+                      Earn verified achievements
+                    </p>
+                  </div>
+                </li>
 
-              {/* Item 2 */}
-              <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 text-green-600 text-lg font-semibold">
-                  ⚡
-                </span>
-                <div className="flex flex-col text-left">
-                  <h3 className="text-2xl font-semibold text-slate-800">
-                    Real projects
-                  </h3>
-                  <p className="text-lg text-slate-800">Work with companies</p>
-                </div>
-              </li>
+                {/* Item 2 */}
+                <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 text-green-600 text-lg font-semibold">
+                    ⚡
+                  </span>
+                  <div className="flex flex-col text-left">
+                    <h3 className="text-2xl font-semibold text-slate-800">
+                      Real projects
+                    </h3>
+                    <p className="text-lg text-slate-800">
+                      Work with companies
+                    </p>
+                  </div>
+                </li>
 
-              {/* Item 3 */}
-              <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600 text-lg font-semibold">
-                  🌍
-                </span>
-                <div className="flex flex-col text-left">
-                  <h3 className="text-2xl font-semibold text-slate-800">
-                    Global roles
-                  </h3>
-                  <p className="text-lg text-slate-800">Remote & onsite</p>
-                </div>
-              </li>
-            </ul>
-          </section>
-        </motion.div>
+                {/* Item 3 */}
+                <li className="flex items-start gap-4 p-4 rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600 text-lg font-semibold">
+                    🌍
+                  </span>
+                  <div className="flex flex-col text-left">
+                    <h3 className="text-2xl font-semibold text-slate-800">
+                      Global roles
+                    </h3>
+                    <p className="text-lg text-slate-800">Remote & onsite</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+          </motion.div>
 
           {/* Section ? */}
           <motion.div
