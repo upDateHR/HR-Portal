@@ -1,7 +1,7 @@
 :root {
-  --indigo: #4f46e5;
-  --indigo-light: #eef2ff;
-  --indigo-hover: #4338ca;
+  --purple: #9810FA;
+  --purple-light: #eef2ff;
+  --purple-hover: #890ee0;
   --text: #0f172a;
   --muted: #475569;
   --border: #e2e8f0;
@@ -88,7 +88,7 @@
 .logo {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--indigo);
+  color: var(--purple);
   z-index: 1;
 }
 
@@ -138,13 +138,13 @@
 }
 
 .option:hover {
-  border-color: var(--indigo);
-  background: var(--indigo-light);
+  border-color: var(--purple);
+  background: var(--purple-light);
 }
 
 .option.active {
-  border-color: var(--indigo);
-  background: var(--indigo-light);
+  border-color: var(--purple);
+  background: var(--purple-light);
 }
 
 .icon-box {
@@ -163,8 +163,8 @@
 }
 
 .active-icon {
-  background: var(--indigo-light);
-  color: var(--indigo);
+  background: var(--purple-light);
+  color: var(--purple);
 }
 
 .option-text h3 {
@@ -202,7 +202,7 @@
 }
 
 .login-text a {
-  color: var(--indigo);
+  color: var(--purple);
   text-decoration: none;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .continue-btn {
-  background: var(--indigo);
+  background: var(--purple);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -222,7 +222,7 @@
 }
 
 .continue-btn:hover {
-  background: var(--indigo-hover);
+  background: var(--purple-hover);
 }
 
 .continue-btn.disabled {

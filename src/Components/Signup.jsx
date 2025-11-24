@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-
 export default function Signup() {
   const [selected, setSelected] = useState(null);
 
@@ -15,26 +14,24 @@ export default function Signup() {
       key: "candidate",
       title: "Sign up as a Candidate",
       desc: "Compete, learn, and apply for jobs and internships",
-      // icon: "fa-solid fa-user",
       icon: faUser,
     },
     {
       key: "recruiter",
       title: "Sign up as a Recruiter",
       desc: "Host competitions, hire talent, and offer career opportunities",
-      // icon: "fa-solid fa-magnifying-glass",
-       icon: faMagnifyingGlass,
+      icon: faMagnifyingGlass,
     },
   ];
 
   const handleContinue = () => {
     if (!selected) return;
     // Route to the appropriate registration page based on selection
-    if (selected === 'candidate') {
-      navigate('/candidate/signup', { state: { selected } });
+    if (selected === "candidate") {
+      navigate("/candidate/signup", { state: { selected } });
     } else {
       // recruiter -> employer/company signup
-      navigate('/company/signup', { state: { selected } });
+      navigate("/company/signup", { state: { selected } });
     }
   };
 
@@ -68,7 +65,6 @@ export default function Signup() {
                 >
                   <div className={`icon-box ${active ? "active-icon" : ""}`}>
                     <FontAwesomeIcon icon={icon} className="fa-icon" />
-
                   </div>
                   <div className="option-text">
                     <h3>{title}</h3>
