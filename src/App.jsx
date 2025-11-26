@@ -5,12 +5,12 @@ import Signup from "./Components/Signup.jsx";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Login from "./Components/Login.jsx";
 import Navbar from "./Components/Navbar.jsx";
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import CandidateRegister from "./candidate/Components/Candidate.jsx";
-import CompanyRegister from "./components/Register.jsx";
+import CompanyRegister from "./Components/Register.jsx";
 import MainHomePage from "./MainHomePage.jsx";
 import Footer from "./candidate/Components/Footer.jsx"; 
-import ChatWidget from "./components/ChatWidget.jsx";
+import ChatWidget from "./Components/ChatWidget.jsx";
 
 
 // Consistent color definitions
