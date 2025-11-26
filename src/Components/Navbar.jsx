@@ -102,7 +102,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             {/* Login button */}
             <Link
-              to="signup"
+              to="/signup"
               className="
     inline-flex items-center gap-2 rounded-full 
     bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
@@ -117,7 +117,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              to="login"
+              to="/login"
               className="
     inline-flex items-center gap-2 rounded-full 
     bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
