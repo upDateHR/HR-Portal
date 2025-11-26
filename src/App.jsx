@@ -1,16 +1,17 @@
 import "./App.css";
 import EmployerApp from "./employer/EmployerApp.jsx";
 import CandidateApp from "./candidate/CandidateApp.jsx";
-import Signup from "./components/Signup.jsx";
+import Signup from "./Components/Signup.jsx";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
-import Login from "./components/Login.jsx";
-import Navbar from "./components/Navbar.jsx";
+import Login from "./Components/Login.jsx";
+import Navbar from "./Components/Navbar.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import CandidateRegister from "./candidate/Components/Candidate.jsx";
 import CompanyRegister from "./components/Register.jsx";
 import MainHomePage from "./MainHomePage.jsx";
-import Footer from "./candidate/Components/Footer.jsx"; // Universal Footer Import
+import Footer from "./candidate/Components/Footer.jsx"; 
 import ChatWidget from "./components/ChatWidget.jsx";
+
 
 // Consistent color definitions
 const UPSTOX_TEXT_PURPLE = 'purple-600';
