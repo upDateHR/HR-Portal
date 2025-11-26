@@ -102,7 +102,7 @@ export default function Candidate() {
 
         {/* Right (form) */}
         <div className="signup-right">
-          <div className="step-header">
+          {/* <div className="step-header">
             <button
               className="back-btn"
               onClick={() => navigate(-1)}
@@ -113,10 +113,10 @@ export default function Candidate() {
             <span className="pill">
               {selected === "candidate" ? "Candidate" : "Recruiter"}
             </span>
-          </div>
+          </div> */}
 
-          <h2 className="text-[30px] mb-1 font-bold">Tell us about you</h2>
-          <p className=" text-[19px] mb-2 ">
+          <h2 className="text-[30px] mb-1 font-bold text-center">Tell us about you</h2>
+          <p className=" text-[19px] mb-2 text-center">
             Create your {selected} account to get started
           </p> 
 

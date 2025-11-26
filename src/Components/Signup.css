@@ -36,10 +36,28 @@
   width: 100%;
 }
 
+.login-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  max-width: 700px;
+  width: 90%;
+  border: 1px solid var(--border);
+
+  
+}
+
 @media (min-width: 768px) {
   .signup-card {
     /* grid-template-columns: 1fr 1fr; */
     grid-template-columns: 0.7fr 0.9fr;
+  }
+  .login-card {
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: 0.7fr 0.8fr;
   }
 }
 

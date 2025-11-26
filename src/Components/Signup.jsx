@@ -38,7 +38,7 @@ export default function Signup() {
   return (
     <div className="signup-container">
       <div className="signup-card">
-        {/* Left section */}
+        {/* Left section */} 
         <div className="signup-left">
           <div className="left-gradient"></div>
           <div className="left-circle left-circle1"></div>

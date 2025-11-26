@@ -114,7 +114,8 @@ const Header = ({
     <div className="flex justify-between items-center px-6 py-4 bg-white sticky top-0 z-20 shadow-lg">
       {/* FONT REVERT: Original font sizing/weight maintained */}
       <h1 className="flex items-center gap-3" >
-        <img className="h-10" src="/hr1.png" alt="Job Portal Logo" />
+        {/* <img className="h-10" src="/hr1.png" alt="Job Portal Logo" /> */}
+         <img className="h-10" src="/IamHR1.png" alt="" />
       </h1>
 
       {/* NAVIGATION: Added transition/smoothness */}

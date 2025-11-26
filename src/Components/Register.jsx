@@ -177,11 +177,11 @@ const Register = ({ setCurrentView }) => {
           <div className="signup-right">
             <div className=" flex items-center justify-center bg-gray-100 ">
               <div className="bg-white p-2 max-w-md w-full">
-                <h1 className="text-[28px] font-bold text-gray-900 mb-1 text-start">
+                <h1 className="text-[28px] font-bold text-gray-900 mb-1 text-center">
                   Create Employer Account
                 </h1>
 
-                <p className="text-start text-gray-600 mb-3 text-[18px]">
+                <p className="text-center text-gray-600 mb-3 text-[18px]">
                   Start hiring with I am HR Portal
                 </p>
 

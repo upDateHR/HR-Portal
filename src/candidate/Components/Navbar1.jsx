@@ -145,7 +145,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand/Logo - Reverted to image as requested */}
           <Link to="/candidate" className="flex items-center gap-3">
-            <img className="h-10" src="/hr1.png" alt="Job Portal Logo" />
+            {/* <img className="h-10" src="/hr1.png" alt="Job Portal Logo" /> */}
+             <img className="h-10" src="/IamHR1.png" alt="" />
           </Link>
 
           {/* Center - Nav Links (md+) with Icons */}
