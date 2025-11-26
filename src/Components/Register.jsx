@@ -185,7 +185,7 @@ const Register = ({ setCurrentView }) => {
                   Start hiring with I am HR Portal
                 </p>
 
-                <form className="space-y-5" onSubmit={handleRegister}>
+                <form className="space-y-4" onSubmit={handleRegister}>
                   <div>
                     <label className="block text-sm font-bold text-black">
                       Full Name
@@ -196,7 +196,7 @@ const Register = ({ setCurrentView }) => {
                       placeholder="John Doe"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
+                      className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                     
                   </div>
@@ -211,7 +211,7 @@ const Register = ({ setCurrentView }) => {
                       placeholder="I am HR"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
+                      className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                   </div>
 
@@ -225,7 +225,7 @@ const Register = ({ setCurrentView }) => {
                       placeholder="you@example.com"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
+                      className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                   </div>
 
@@ -239,8 +239,9 @@ const Register = ({ setCurrentView }) => {
                       placeholder="••••••••"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
+                      className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
+                    <small className="hint">At least 8 characters</small>
                   </div>
 
                   <button

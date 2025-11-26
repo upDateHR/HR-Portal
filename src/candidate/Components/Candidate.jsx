@@ -171,7 +171,7 @@ export default function Candidate() {
                 autoComplete="new-password"
                 disabled={loading}
               />
-              <small className="hint">At least 6 characters</small>
+              <small className="hint">At least 8 characters</small>
             </div>
 
             {selected === "recruiter" && (
@@ -201,7 +201,7 @@ export default function Candidate() {
             </button>
           </form>
 
-          <p className="login-text form-login">
+          <p className="login-text form-login text-center">
             Already have an account? <Link to="/login">Login</Link>
           </p>
         </div>
