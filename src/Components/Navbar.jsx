@@ -132,7 +132,7 @@ export default function Navbar() {
             </Link>
 
             {/* mobile menu toggle */}
-            <button
+            {/* <button
               onClick={() => setMobileOpen((s) => !s)}
               aria-controls="mobile-menu"
               aria-expanded={mobileOpen}
@@ -173,7 +173,7 @@ export default function Navbar() {
                   />
                 </svg>
               )}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

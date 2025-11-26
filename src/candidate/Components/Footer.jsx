@@ -109,7 +109,7 @@ const Footer = () => {
             </div>
             
             {/* Copyright: Clean, centered on mobile */}
-            <div className="text-[14px] text-purple-200 text-center sm:text-right">
+            <div className="text-[13px] text-purple-200 text-center sm:text-right">
               <p>Copyright © {new Date().getFullYear()} IamHR Education Technology Pvt Ltd</p>
             </div>
           </div>

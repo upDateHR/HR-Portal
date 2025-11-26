@@ -27,7 +27,7 @@ function LandingPage() {
       <Navbar />
       <MainHomePage />
       <div className="bg-linear-to-br from-purple-50 to-white flex flex-col items-center px-6 pt-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
+        <h1 className="text-2xl md:text-5xl font-extrabold text-gray-800 text-center leading-tight">
           Find Internships & Hire Talent
         </h1>
 
