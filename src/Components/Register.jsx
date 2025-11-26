@@ -185,56 +185,61 @@ const Register = ({ setCurrentView }) => {
                   Start hiring with I am HR Portal
                 </p>
 
-                <form className="space-y-6" onSubmit={handleRegister}>
+                <form className="space-y-5" onSubmit={handleRegister}>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-bold text-black">
                       Full Name
                     </label>
                     <input
                       id="name"
                       type="text"
+                      placeholder="John Doe"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
+                    
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-bold text-black">
                       Company Name
                     </label>
                     <input
                       id="companyName"
                       type="text"
+                      placeholder="I am HR"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-bold text-black">
                       Email
                     </label>
                     <input
                       id="email"
                       type="email"
+                      placeholder="you@example.com"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">
+                    <label className="block text-sm font-bold text-black">
                       Password
                     </label>
                     <input
                       id="password"
                       type="password"
+                      placeholder="••••••••"
                       required
                       onChange={handleChange}
-                      className="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                      className="mt-1 w-full px-4 py-2 border border-gray-400 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"
                     />
                   </div>
 

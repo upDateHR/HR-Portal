@@ -115,9 +115,13 @@ export default function Candidate() {
             </span>
           </div> */}
 
-          <h2 className="text-[30px] mb-1 font-bold text-center">Tell us about you</h2>
+          <h2 className="text-[28px] mb-1 font-bold text-center">Create Candidate Account</h2>
+          {/* <h2 className="text-[30px] mb-1 font-bold text-center">Tell us about you</h2>
           <p className=" text-[19px] mb-2 text-center">
             Create your {selected} account to get started
+          </p>  */}
+          <p className=" text-[18px] mb-2 text-center">
+             Get started
           </p> 
 
           <form className="form" onSubmit={handleRegister}>
