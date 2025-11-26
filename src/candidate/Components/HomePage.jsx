@@ -19,7 +19,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-6 sm:px-10 py-10 lg:pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left: Headline + CTA */}
-            <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="lg:col-span-6 order-1 lg:order-2">
               <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
                 Unlock your career — <br />
                 <span className={`text-${UPSTOX_TEXT_PURPLE}`}>get noticed</span> and get
@@ -41,7 +41,7 @@ export default function HomePage() {
                     shadow-xl shadow-purple-300/50 
                     hover:bg-purple-700 hover:shadow-2xl 
                     focus:outline-none focus:ring-4 focus:ring-purple-200 
-                    text-base font-semibold transition-all duration-300 ease-out hover:-translate-y-0.5`}
+                    text-base font-semibold transition-all duration-300 ease-out hover:-translate-y-0.5 justify-center`}
                 >
                   Explore Opportunities
                 </a>
@@ -60,7 +60,7 @@ export default function HomePage() {
             </div>
 
             {/* Right: Visuals */}
-            <div className="lg:col-span-6 flex justify-center order-1 lg:order-2">
+            <div className="lg:col-span-6 flex justify-center order-2 lg:order-2">
               <div className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 ease-out hover:-translate-y-1 hover:scale-[1.02]">
                 <img
                   src="https://d8it4huxumps7.cloudfront.net/uploads/images/676e555db74f7_compete.png?d=1000x600"
@@ -122,49 +122,42 @@ export default function HomePage() {
 
         {/* SKILLS CARD */}
         <motion.div
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-0"
-        >
-          <section className="max-w-7xl mx-auto px-6 sm:px-10 pb-16 pt-6">
-            <div className={`flex flex-col lg:flex-row items-center gap-10 rounded-xl shadow-2xl border border-gray-100 p-8 bg-white/70 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-2xl`}>
-              {/* Left Image */}
-              <div className="flex justify-center w-full lg:w-1/2 order-2 lg:order-1">
-                <img
-                  src="/Skills.png"
-                  alt="Skills"
-                  className="h-64 rounded-xl object-contain shadow-lg"
-                />
-              </div>
-  
-              {/* Right Content */}
-              <div className="w-full lg:w-1/2 space-y-4 flex flex-col justify-start text-start order-1 lg:order-2">
-                <h1 className="text-4xl font-bold text-gray-900 leading-tight">
-                  Learn & Level Up Your Skills
-                </h1>
-  
-                <p className="text-lg text-gray-600">
-                  Select from a wide range of courses to upskill and advance
-                  your career!
-                </p>
-  
-                <Link to="#">
-                  {/* Explore Skills Button: Uses Branded Gradient */}
-                  <button 
-                    className={`mt-4 px-6 py-3 rounded-xl 
-                      bg-gradient-to-r ${UPSTOX_GRADIENT_START} ${UPSTOX_GRADIENT_END} text-white 
-                      shadow-md hover:from-purple-700 hover:to-violet-700 
-                      focus:outline-none focus:ring-4 focus:ring-purple-300 
-                      transition-all duration-300 ease-out hover:-translate-y-0.5`}
-                  >
-                    Explore Skills
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </section>
-        </motion.div>
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center"
+              >
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pb-12 pt-4">
+                  <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 rounded-xl shadow-lg border border-slate-100 p-5 sm:p-6 lg:p-8 bg-white/70 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl">
+                    {/* Left Image */}
+                    <div className="flex justify-center w-full lg:w-1/2">
+                      <img
+                        src="/Skills.png"
+                        alt="Skills"
+                        className="h-52 sm:h-60 rounded-xl object-contain"
+                      />
+                    </div>
+        
+                    {/* Right Content */}
+                    <div className="w-full lg:w-1/2 space-y-3 flex flex-col justify-start text-left">
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight">
+                        Learn & Level Up Your Skills
+                      </h1>
+        
+                      <p className="text-sm sm:text-lg text-slate-600">
+                        Select from a wide range of courses to upskill and advance your
+                        career!
+                      </p>
+        
+                      <Link to="/signup">
+                        <button className="mt-3 px-5 py-3 bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 text-white rounded-xl shadow-md text-sm sm:text-base transition-all duration-300 ease-out hover:-translate-y-0.5">
+                          Explore Skills
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </section>
+              </motion.div>
 
         {/* JobCardGrid (assuming this handles its own layout) */}
         <JobCardGrid />
