@@ -112,7 +112,7 @@ const MainHomePage = () => {
 
               <div className="w-full">
                 {/* horizontally scrollable on small screens, wraps on larger */}
-                <ul className="flex gap-4 items-center overflow-x-auto lg:flex-wrap lg:overflow-visible py-2">
+                <ul className="flex gap-4 items-center overflow-x-auto lg:flex-wrap  lg:overflow-visible py-2">
                   {[
                     { emoji: "🌍", label: "Human Resources" },
                     { emoji: "💻", label: "Software Development" },
