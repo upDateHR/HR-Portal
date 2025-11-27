@@ -31,11 +31,12 @@ app.use('/api/assistant', assistantRoutes);
 
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 async function start() {
     try {
-        const mongo = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/hr-portal'; 
+        // const mongo = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/hr-portal'; 
+        const mongo = process.env.MONGO_URI; 
         await mongoose.connect(mongo, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log('MongoDB connected Successfuly');
         app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
