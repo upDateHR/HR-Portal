@@ -1,0 +1,69 @@
+import React, { useState, useEffect } from "react";
+import Cards from "./Cards";
+import API from "../../../../api";
+
+const CardGrid = () => {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      try {
+        const res = await API.get("/jobs/public");
+        const list = res?.data?.jobs || [];
+        // keep only internships
+        const interns = list.filter(
+          (j) => (j.type || "").toLowerCase() === "internship"
+        );
+        if (mounted) setJobs(interns);
+      } catch (err) {
+        console.error("Failed to load internships for candidate:", err);
+        if (mounted) setJobs([]);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+    load();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (loading)
+    return (
+      <section className="max-w-7xl mx-auto px-10 pt-6">
+        Loading internships...
+      </section>
+    );
+
+  return (
+    <section className="max-w-7xl mx-auto px-10 pt-6">
+      <h2 className="text-2xl text-start font-bold mb-2">Internships</h2>
+      {jobs.length === 0 ? (
+        <p className="text-gray-600">No internships posted yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {jobs.map((j) => (
+            <Cards
+              key={j._id}
+              id={j._id}
+              title={j.title}
+              company={j.companyName || j.company}
+              location={j.location || "Not available"}
+              employees={j.companySize || ""}
+              remote={(j.workplace || "").toLowerCase() === "remote"}
+              skills={j.skills || []}
+              stipend={j.minSalary ? `₹${j.minSalary}` : "Not available"}
+              duration={j.duration || j.jobLevel || "Not available"}
+              img={j.img || "/React.png"}
+              alt={j.companyName || "Company logo"}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+};
+
+export default CardGrid;

@@ -1,0 +1,81 @@
+/* Make card slightly slimmer and keep right side roomy on desktop */
+.signup-card { max-width: 850px; }
+@media (min-width: 768px) {
+  .signup-card { grid-template-columns: 0.7fr 0.9fr; }
+  
+}
+
+/* Step 2 header (back + pill) */
+.step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.2s;
+}
+.back-btn:hover { background: #f1f5f9; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--indigo-light);
+  color: var(--indigo);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Form */
+.form {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: grid;
+  gap: 6px;
+}
+
+.form-row label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.form-row input {
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+  color: var(--text);
+}
+
+.form-row input:focus {
+  border-color: var(--indigo);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Login text space under form */
+.form-login { margin-top: 8px; }
