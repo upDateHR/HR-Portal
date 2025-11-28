@@ -47,8 +47,8 @@ const MainHomePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left: Headline + CTA */}
             <div className="lg:col-span-6 space-y-4 text-start lg:text-left">
-              <h1 className="text-[35px] sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-start">
-                Start Your Career Journey — <span className="text-purple-600">Internships & Hiring </span>
+              <h1 className="text-[35px] lg:text-[46px] font-extrabold leading-tight tracking-tight text-start">
+                Start Your Career Journey — <span className="text-purple-600 text-[30px] lg:text-[44px]">Internships & Hiring </span>
               </h1>
 
               <p className="mt-2 text-base text-[20px] sm:text-lg text-slate-900 max-w-xl mx-auto lg:mx-0">
