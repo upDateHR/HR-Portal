@@ -146,11 +146,12 @@ export default function Navbar() {
           {/* Brand/Logo - Reverted to image as requested */}
           <Link to="/candidate" className="flex items-center gap-3">
             {/* <img className="h-10" src="/hr1.png" alt="Job Portal Logo" /> */}
-             <img className="h-10" src="/IamHR1.png" alt="" />
+             {/* <img className="h-10" src="/IamHR1.png" alt="" /> */}
+             <img className="h-6 lg:h-6" src="/abhiintern1.png" alt="" />
           </Link>
 
           {/* Center - Nav Links (md+) with Icons */}
-          <div className="hidden md:flex md:items-center md:space-x-1 text-sm">
+          <div className="hidden md:flex md:items-center md:space-x-6 text-sm">
             {navItems.map(item => (
               <Link key={item.to} className={`flex items-center gap-2 ${activeClass(item.to)}`} to={item.to} aria-label={item.label}>
                 <item.icon className="h-5 w-5" />

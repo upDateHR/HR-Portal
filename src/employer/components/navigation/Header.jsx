@@ -115,11 +115,12 @@ const Header = ({
       {/* FONT REVERT: Original font sizing/weight maintained */}
       <h1 className="flex items-center gap-3" >
         {/* <img className="h-10" src="/hr1.png" alt="Job Portal Logo" /> */}
-         <img className="h-10" src="/IamHR1.png" alt="" />
+         {/* <img className="h-10" src="/IamHR1.png" alt="" /> */}
+         <img className="h-6 lg:h-6" src="/abhiintern1.png" alt="" />
       </h1>
 
       {/* NAVIGATION: Added transition/smoothness */}
-      <nav className="hidden md:flex space-x-8 text-sm">
+      <nav className="hidden md:flex space-x-4 text-sm">
         {navigation.map((item) => (
           <button
             key={item.name}
