@@ -70,7 +70,7 @@ export default function Navbar() {
             </h1> */}
             {/* <img className="h-10" src="/hr.png" alt="" /> */}
             {/* <img className="h-10" src="/hr1.png" alt="" /> */}
-            <img className="h-8 lg:h-10" src="/IamHR1.png" alt="" />
+            <img className="h-10 lg:h-10" src="/IamHR1.png" alt="" />
           </Link>
 
           {/* center - nav links (md+) */}
@@ -105,8 +105,8 @@ export default function Navbar() {
               to="/signup"
               className="
     inline-flex items-center gap-2 rounded-full 
-    bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
-    md:px-3 md:py-1.5 md:text-md   text-[11px] shadow-lg 
+    bg-gradient-to-r from-purple-600 to-violet-500 text-white px-3 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
+    md:px-3 md:py-1.5 md:text-md   text-[15px] shadow-lg 
     hover:from-purple-700 hover:to-violet-600 
     focus:outline-none focus:ring-4 focus:ring-indigo-200 
     font-medium 
@@ -120,8 +120,8 @@ export default function Navbar() {
               to="/login"
               className="
     inline-flex items-center gap-2 rounded-full 
-    bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
-    md:px-3 md:py-1.5 md:text-md   text-[11px] shadow-lg 
+    bg-gradient-to-r from-purple-600 to-violet-500 text-white px-3 py-2 text-sm sm:px-6 sm:py-3 sm:text-base 
+    md:px-3 md:py-1.5 md:text-md   text-[14px] shadow-lg 
     hover:from-purple-700 hover:to-violet-600 
     focus:outline-none focus:ring-4 focus:ring-indigo-200 
     font-medium 

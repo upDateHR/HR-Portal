@@ -43,16 +43,15 @@ const MainHomePage = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-12">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-10 py-8 lg:py-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left: Headline + CTA */}
-            <div className="lg:col-span-6 space-y-4 text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
-                <span className="text-purple-600">Unlock </span>
-                Opportunity  Internships & Talent Hiring
+            <div className="lg:col-span-6 space-y-4 text-start lg:text-left">
+              <h1 className="text-[35px] sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-start">
+                Start Your Career Journey — <span className="text-purple-600">Internships & Hiring </span>
               </h1>
 
-              <p className="mt-2 text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0">
+              <p className="mt-2 text-base text-[20px] sm:text-lg text-slate-900 max-w-xl mx-auto lg:mx-0">
                 Join our internship platform where students explore real
                 opportunities and companies discover skilled candidates ready to
                 grow.
@@ -61,14 +60,14 @@ const MainHomePage = () => {
               <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                 <Link
                   to="/login"
-                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-6 py-3 text-sm sm:text-base shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-all duration-300 ease-out hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-6 py-3 text-base sm:text-base shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-all duration-300 ease-out hover:-translate-y-0.5 font-bold"
                 >
                   Explore Opportunities
                 </Link>
 
                 <Link
                   to="/login"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-6 py-3 text-sm sm:text-base text-slate-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 px-6 py-3 text-base sm:text-base text-slate-700 bg-white hover:bg-slate-50 shadow-sm hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-0.5 font-bold"
                 >
                   How it works
                 </Link>
@@ -96,10 +95,10 @@ const MainHomePage = () => {
         transition={{ duration: 0.8 }}
         className="text-center"
       >
-        <section className="max-w-7xl flex justify-center mx-auto px-4 sm:px-6 py-6 lg:py-4">
+        <section className="max-w-7xl flex justify-center mx-auto px-6 sm:px-8 py-6 lg:py-4">
           <div className="flex flex-col lg:flex-row lg:items-center gap-4 w-full">
-            <div className="text-center lg:text-left">
-              <h2 className="text-base text-[22px] sm:text-lg font-extrabold text-slate-900 leading-tight">
+            <div className="text-start lg:text-left">
+              <h2 className="text-base text-[22px] sm:text-lg font-bold text-slate-900 leading-tight">
                 Internships
               </h2>
               <p className="text-[18px] sm:text-lg text-slate-600 mt-1">
@@ -144,11 +143,11 @@ const MainHomePage = () => {
         initial={{ opacity: 0, y: 80 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-center"
+        // className="text-center"
       >
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8">
+        <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-8">
           <div>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900 lg:text-left text-center mb-4">
+            <h2 className="text-[20px] sm:text-xl font-bold text-slate-900 lg:text-left text-start mb-4">
               Who's using IamHR?
             </h2>
 
@@ -238,7 +237,7 @@ const MainHomePage = () => {
               </p>
 
               <Link to="/signup">
-                <button className="mt-3 px-5 py-3 bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 text-white rounded-xl shadow-md text-sm sm:text-base transition-all duration-300 ease-out hover:-translate-y-0.5">
+                <button className="mt-3 px-4 sm:px-5 py-3 bg-gradient-to-r from-purple-600 to-violet-500 hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 text-white rounded-xl shadow-md text-[15px] sm:text-base transition-all duration-300 ease-out hover:-translate-y-0.5">
                   Explore Skills
                 </button>
               </Link>
@@ -289,7 +288,7 @@ const MainHomePage = () => {
                     <div className="mt-auto">
                       <Link
                         to="/signup"
-                        className="inline-flex items-center gap-2 sm:gap-3 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-[17px] sm:text-sm shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-200 font-medium transition-all duration-300 ease-out hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2 sm:gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-[17px] sm:text-sm shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-200 font-medium transition-all duration-300 ease-out hover:-translate-y-0.5"
                       >
                         Know more
                       </Link>
@@ -315,12 +314,12 @@ const MainHomePage = () => {
               <h1 className="text-2xl sm:text-[30px] font-bold tracking-tight text-slate-700">
                 No resume? No problem.
               </h1>
-              <p className="text-sm sm:text-lg font-medium text-slate-700">
+              <p className="text-[16px] sm:text-lg font-medium text-slate-900">
                 Let us help you create a polished resume or improve the one you
                 already have.
               </p>
 
-              <ul className="space-y-1 sm:space-y-2 text-sm sm:text-lg text-slate-700 font-medium list-none">
+              <ul className="space-y-1 sm:space-y-2 text-[18px] sm:text-lg text-slate-800 font-medium list-none">
                 <li>🌀 AI-powered resume builder</li>
                 <li>🌀 Intelligent feedback engine</li>
                 <li>🌀 Perfect for freshers and first-time job seekers</li>
@@ -328,7 +327,7 @@ const MainHomePage = () => {
 
               <Link
                 to="/login"
-                className="mt-2 inline-flex items-center gap-2 sm:gap-3 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-4 py-2 text-sm sm:text-base shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold transition-all duration-300 ease-out hover:-translate-y-0.5 w-42 flex justify-center"
+                className="mt-2 inline-flex items-center gap-2 sm:gap-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-500 text-white px-2 py-2 text-md sm:text-base shadow-lg hover:from-purple-700 hover:to-violet-600 focus:outline-none focus:ring-4 focus:ring-purple-300 font-semibold transition-all duration-300 ease-out hover:-translate-y-0.5 w-41 flex justify-center"
               >
                 Build my resume
               </Link>
@@ -355,7 +354,7 @@ const MainHomePage = () => {
                 <h3 className="text-xl sm:text-2xl font-semibold text-slate-800">
                   CV points
                 </h3>
-                <p className="text-sm sm:text-lg text-slate-800">
+                <p className="text-md sm:text-lg text-slate-800">
                   Earn verified achievements
                 </p>
               </div>
@@ -370,7 +369,7 @@ const MainHomePage = () => {
                 <h3 className="text-xl sm:text-2xl font-semibold text-slate-800">
                   Real projects
                 </h3>
-                <p className="text-sm sm:text-lg text-slate-800">
+                <p className="text-md sm:text-lg text-slate-800">
                   Work with companies
                 </p>
               </div>
@@ -385,7 +384,7 @@ const MainHomePage = () => {
                 <h3 className="text-xl sm:text-2xl font-semibold text-slate-800">
                   Global roles
                 </h3>
-                <p className="text-sm sm:text-lg text-slate-800">
+                <p className="text-md sm:text-lg text-slate-800">
                   Remote & onsite
                 </p>
               </div>

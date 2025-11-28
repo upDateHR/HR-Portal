@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <>
       <main className={`bg-gradient-to-b from-${UPSTOX_LIGHT_GRAY} to-white text-gray-900`}>
-        <section className="max-w-7xl mx-auto px-6 sm:px-10 py-10 lg:pt-20">
+        <section className="max-w-7xl mx-auto px-6 sm:px-10 py-8 lg:pt-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left: Headline + CTA */}
             <div className="lg:col-span-6 order-1 lg:order-2">
