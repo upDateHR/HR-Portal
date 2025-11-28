@@ -28,7 +28,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Left: Headline + CTA */}
               <div className="lg:col-span-6 order-1 lg:order-2">
-                <h1 className="text-[38px] sm:text-5xl font-extrabold leading-tight tracking-tight">
+                <h1 className="text-[40px] sm:text-5xl font-extrabold leading-tight tracking-tight">
                   Unlock your career — <br />
                   <span className={`text-${UPSTOX_TEXT_PURPLE}`}>
                     get noticed
