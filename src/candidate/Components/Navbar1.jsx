@@ -249,14 +249,14 @@ export default function Navbar() {
                         <span className="text-xs text-gray-400 block truncate">{user?.email || "not-signed-in"}</span>
                     </div>
                     
-                    <Link
+                    {/* <Link
                         to="/candidate/dashboard"
                         className={`flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-${UPSTOX_LIGHT_PURPLE_BG} hover:text-${UPSTOX_TEXT_PURPLE} rounded-lg w-full transition duration-150`}
                         onClick={() => setUserOpen(false)}
                     >
                         <LayoutDashboard className="h-4 w-4" />
                         Dashboard
-                    </Link>
+                    </Link> */}
                     <Link
                         to="/candidate/settings"
                         className={`flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-${UPSTOX_LIGHT_PURPLE_BG} hover:text-${UPSTOX_TEXT_PURPLE} rounded-lg w-full transition duration-150`}
