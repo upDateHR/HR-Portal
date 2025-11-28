@@ -148,12 +148,7 @@ const Header = ({
 
         <Bell className="h-5 w-5 text-gray-500 cursor-pointer hover:text-gray-700 transition duration-150 hidden md:block" />
 
-        <button
-          className="md:hidden text-gray-600 hover:text-gray-900 transition duration-150"
-          onClick={() => setIsMobileMenuMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        
 
         {/* PROFILE DROPDOWN TRIGGER: Added border/shadow/transition for smooth clickable block */}
         <div
@@ -162,7 +157,7 @@ const Header = ({
         >
           {/* FONT REVERT: Kept original text size/weight */}
           <span className="text-sm font-medium text-gray-800 hidden sm:inline">
-            {userData.companyName || userData.name || ""}
+            {/* {userData.companyName || userData.name || ""}/ */}
           </span>
 
           <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
@@ -175,6 +170,13 @@ const Header = ({
             <ChevronDown className="h-4 w-4 text-gray-500 flex-shrink-0" />
           )}
         </div>
+
+        <button
+          className="md:hidden text-gray-600 hover:text-gray-900 transition duration-150"
+          onClick={() => setIsMobileMenuMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
 
         {/* PROFILE DROPDOWN MENU: Rounded design, elevated shadow */}
         {isProfileMenuOpen && (
