@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginRecruiter } from "../employer/helpers/employerService";
+import { toast } from "react-toastify";
 
 const Login = ({ setCurrentView }) => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const Login = ({ setCurrentView }) => {
     try {
       const res = await loginRecruiter(form);
       // Save token & full user object already done in service
-      alert("Login successful!");
+      // alert("Login successful!");
+      toast.success("Login successful! ✅");
       // determine user role and navigate to appropriate portal
       const user =
         res && res.user
@@ -32,13 +34,25 @@ const Login = ({ setCurrentView }) => {
           ? "/candidate"
           : "/company";
 
-      if (typeof setCurrentView === "function") {
-        setCurrentView(target);
-        window.location.reload();
-      } else {
-        navigate(target, { replace: true });
-        window.location.reload();
-      }
+      // if (typeof setCurrentView === "function") {
+      //   setCurrentView(target);
+      //   window.location.reload();
+      // } else {
+      //   navigate(target, { replace: true });
+      //   window.location.reload();
+      // }
+
+      
+
+      setTimeout(() => {
+        if (typeof setCurrentView === "function") {
+          setCurrentView(target);
+          window.location.reload();
+        } else {
+          navigate(target, { replace: true });
+          window.location.reload();
+        }
+      }, 2000);
     } catch (err) {
       console.error("LOGIN FAILED:", err);
       alert(err?.response?.data?.message || "Invalid email or password");
@@ -120,9 +134,10 @@ const Login = ({ setCurrentView }) => {
             <div className="left-gradient"></div>
             <div className="left-circle left-circle1"></div>
             <div className="left-circle left-circle2"></div>
-            <h1 className="logo">IamHR</h1>
+            {/* <h1 className="logo">IamHR</h1> */}
+            <img className="h-6 lg:h-7" src="/abhiintern1.png" alt="" />
             <p className="left-desc">
-              Join IamHR and find your dream job or recruit talented candidates.
+              Join AbhiIntern and find your dream job or recruit talented candidates.
             </p>
           </div>
 
@@ -135,7 +150,7 @@ const Login = ({ setCurrentView }) => {
                 </h1>
 
                 <p className="text-center text-gray-500 mb-4">
-                  Sign in to continue to I am HR Portal
+                  Sign in to continue to AbhiIntern
                 </p>
 
                 <form className="space-y-6" onSubmit={handleLogin}>

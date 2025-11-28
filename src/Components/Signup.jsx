@@ -43,9 +43,10 @@ export default function Signup() {
           <div className="left-gradient"></div>
           <div className="left-circle left-circle1"></div>
           <div className="left-circle left-circle2"></div>
-          <h1 className="logo">IamHR</h1>
+          {/* <h1 className="logo">IamHR</h1> */}
+          <img className="h-6 lg:h-7" src="/abhiintern1.png" alt="" />
           <p className="left-desc">
-            Join IamHR and find your dream job or recruit talented candidates.
+            Join AbhiIntern and find your dream job or recruit talented candidates.
           </p>
         </div>
 

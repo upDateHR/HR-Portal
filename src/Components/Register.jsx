@@ -77,7 +77,7 @@ const Register = ({ setCurrentView }) => {
           </h1>
 
           <p className="text-center text-gray-500 mb-6">
-            Start hiring with I am HR Portal
+            Start hiring with AbhiIntern Portal
           </p>
 
           <form className="space-y-6" onSubmit={handleRegister}>
@@ -167,9 +167,10 @@ const Register = ({ setCurrentView }) => {
             <div className="left-gradient" />
             <div className="left-circle left-circle1" />
             <div className="left-circle left-circle2" />
-            <h1 className="logo">IamHR</h1>
+            {/* <h1 className="logo">IamHR</h1> */}
+            <img className="h-6 lg:h-7" src="/abhiintern1.png" alt="" />
             <p className="left-desc">
-              Join IamHR and find your dream job or recruit talented candidates.
+              Join AbhiIntern and find your dream job or recruit talented candidates.
             </p>
           </div>
 
@@ -182,7 +183,7 @@ const Register = ({ setCurrentView }) => {
                 </h1>
 
                 <p className="text-center text-gray-600 mb-3 text-[18px]">
-                  Start hiring with I am HR Portal
+                  Start hiring with AbhiIntern
                 </p>
 
                 <form className="space-y-4" onSubmit={handleRegister}>
@@ -208,7 +209,7 @@ const Register = ({ setCurrentView }) => {
                     <input
                       id="companyName"
                       type="text"
-                      placeholder="I am HR"
+                      placeholder="AbhiIntern"
                       required
                       onChange={handleChange}
                       className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-purple-600 focus:border-purple-400 focus:ring-1 focus:outline-none"

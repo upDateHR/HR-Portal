@@ -56,9 +56,11 @@ const Footer = () => {
             {/* Column 1: Branding & Contact - Reduced spacing */}
             <div className="col-span-2 md:col-span-1 space-y-2">
               {/* Reduced font size for IamHR text */}
-              <h1 className="text-xl font-bold">
-                <span className={`text-white`}>Iam</span>HR
+              <h1 className="text-xl font-bold ">
+                <span className={`text-white`}>Abhi</span>Intern
               </h1>
+
+              
               <p className="text-[14px] font-light text-purple-100 mt-0.5">
                 Built with ❤️ in India for the world.
               </p>

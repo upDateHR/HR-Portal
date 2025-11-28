@@ -9,19 +9,20 @@ import ProtectedRoute from "./Components/ProtectedRoute.jsx";
 import CandidateRegister from "./candidate/Components/Candidate.jsx";
 import CompanyRegister from "./Components/Register.jsx";
 import MainHomePage from "./MainHomePage.jsx";
-import Footer from "./candidate/Components/Footer.jsx"; 
+import Footer from "./candidate/Components/Footer.jsx";
 import ChatWidget from "./Components/ChatWidget.jsx";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Consistent color definitions
-const UPSTOX_TEXT_PURPLE = 'purple-600';
-const UPSTOX_GRADIENT_START = 'from-purple-600';
-const UPSTOX_GRADIENT_END = 'to-violet-500';
-
+const UPSTOX_TEXT_PURPLE = "purple-600";
+const UPSTOX_GRADIENT_START = "from-purple-600";
+const UPSTOX_GRADIENT_END = "to-violet-500";
 
 function LandingPage() {
   return (
-    // NOTE: The structural wrapper and Footer were removed from LandingPage 
+    // NOTE: The structural wrapper and Footer were removed from LandingPage
     // to prevent duplication, but the rest of the content remains.
     <>
       <Navbar />
@@ -75,8 +76,7 @@ function LandingPage() {
 function App() {
   return (
     // CRITICAL: Added flex structure to ensure the footer sticks to the bottom
-    <div className="min-h-screen flex flex-col"> 
-      
+    <div className="min-h-screen flex flex-col">
       {/* 🟣 Chatbot is universal and stays outside the main content wrapper */}
       <ChatWidget />
 
@@ -120,6 +120,27 @@ function App() {
 
       {/* 🚀 Universal Footer Added Here, visible on ALL routes */}
       <Footer />
+
+      {/* your routes / layout */}
+      <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="light"
+        toastStyle={{
+          backgroundColor: "#ffffff",
+          color: "#1a1a1a",
+          borderRadius: "10px",
+          padding: "14px 18px",
+          fontSize: "15px",
+          border: "1px solid #e5e7eb",
+          boxShadow: "0px 6px 18px rgba(0, 0, 0, 0.08)",
+          fontWeight: 500,
+        }}
+        style={{ marginTop: "25px" }}
+      />
     </div>
   );
 }
