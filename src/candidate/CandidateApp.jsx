@@ -19,6 +19,8 @@ import Analytics from "./Pages/Analytics";
 import Settings from "./Pages/Settings";
 import ResumeBuilder from "./Pages/ResumeBuilder";
 import ResumePage from "./Pages/ResumePage";
+import GroupChat from "./Components/GroupChat";
+import CommentSection from "./Components/CommentSection";
 
 function CandidateApp() {
   // Use useLocation, but remove the conditional logic for the footer
@@ -46,6 +48,8 @@ function CandidateApp() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/resumebuilder" element={<ResumeBuilder />} />
           <Route path="/resumepage" element={<ResumePage />} />
+          <Route path="/groupchat" element={<GroupChat />} />
+          <Route path="/commentsection" element={<CommentSection />} />
         </Routes>
       </main>
       

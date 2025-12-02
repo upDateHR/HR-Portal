@@ -14,7 +14,8 @@ import {
   Award,       // Icon for Internship (or specific relevant icon)
   BarChart2,   // Icon for Analytics
   FileText,    // Icon for Resume Maker
-  Settings    // Icon for Settings
+  Settings,
+  MessageSquare    // Icon for Settings
 } from 'lucide-react';
 
 import API from "../../api";
@@ -97,6 +98,7 @@ export default function Navbar() {
     // { to: "/candidate/analytics", label: "Analytics", icon: BarChart2 },
     { to: "/candidate/resumepage", label: "Resume Maker", icon: FileText },
     // { to: "/candidate/settings", label: "Settings", icon: Settings },
+    { to: "/candidate/groupchat", label: "GroupChat", icon: MessageSquare  },
   ];
 
   // Mobile menu link helper
@@ -145,9 +147,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Brand/Logo - Reverted to image as requested */}
           <Link to="/candidate" className="flex items-center gap-3">
-            {/* <img className="h-10" src="/hr1.png" alt="Job Portal Logo" /> */}
-             {/* <img className="h-10" src="/IamHR1.png" alt="" /> */}
-             <img className="h-6 lg:h-6" src="/abhiintern1.png" alt="" />
+            
+             {/* <img className="h-6 lg:h-6" src="/abhiintern1.png" alt="" /> */}
+             <img className="h-5 lg:h-5" src="/Abhilogo.png" alt="" />
           </Link>
 
           {/* Center - Nav Links (md+) with Icons */}
