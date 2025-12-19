@@ -468,6 +468,11 @@ body {
   box-shadow: none;
 }
 
+.like-comment {
+  display: flex;
+  gap: 10px;
+}
+
 /* ---------- Comments ---------- */
 
 .comments-wrapper {

@@ -264,13 +264,22 @@ function GroupChat() {
                 {post.text && <p className="post-text">{post.text}</p>}
 
                 <footer className="post-footer">
-                  <button
-                    type="button"
-                    onClick={() => handleToggleLike(post._id)}
-                  >
-                    {hasUserLiked(post, userName) ? "❤️ Liked" : "❤️ Like"}{" "}
-                    {post.likes?.length ? `(${post.likes.length})` : ""}
-                  </button>
+                  <div className="like-comment">
+                    <button
+                      type="button"
+                      onClick={() => handleToggleLike(post._id)}
+                    >
+                      {hasUserLiked(post, userName) ? "❤️ Liked" : "❤️ Like"}{" "}
+                      {post.likes?.length ? `(${post.likes.length})` : ""}
+                    </button>
+
+                    <CommentSection
+                      postId={post._id}
+                      currentUserName={userName}
+                      initialComments={post.comments || []}
+                      apiBase={API_BASE}
+                    />
+                  </div>
 
                   {/* 🗑 DELETE BUTTON */}
                   {post.userName === userName && (
@@ -283,12 +292,7 @@ function GroupChat() {
                     </button>
                   )}
 
-                  <CommentSection
-                    postId={post._id}
-                    currentUserName={userName}
-                    initialComments={post.comments || []}
-                    apiBase={API_BASE}
-                  />
+                  
                 </footer>
               </article>
             ))}
