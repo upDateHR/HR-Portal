@@ -4,13 +4,12 @@ import axios from "axios";
 import CommentSection from "./CommentSection";
 import "./GroupChat.css"; // 👈 ye line add karo
 
-
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://chat-server-ashen-tau.vercel.app/api";
 
 function GroupChat() {
   const [posts, setPosts] = useState([]);
   const [text, setText] = useState("");
-  const [file, setFile] = useState(null);
+
   const [userName, setUserName] = useState("");
   const [headline, setHeadline] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,7 +18,7 @@ function GroupChat() {
   const [searchInput, setSearchInput] = useState(""); // input box me jo likh rahe ho
   const [searchQuery, setSearchQuery] = useState(""); // jo actually filter ke liye use hoga
 
-    // user info init – same as Navbar (auto from logged-in user)
+  // user info init – same as Navbar (auto from logged-in user)
   useEffect(() => {
     try {
       // Navbar jaisa hi logic
@@ -32,8 +31,7 @@ function GroupChat() {
 
         const name = u.name || "Guest";
         // agar backend me headline/role ka field ho to usko use karo
-        const title =
-          u.headline || u.role || "Open to opportunities";
+        const title = u.headline || u.role || "Open to opportunities";
 
         setUserName(name);
         setHeadline(title);
@@ -47,7 +45,6 @@ function GroupChat() {
     setUserName("Guest");
     setHeadline("Open to opportunities");
   }, []);
-
 
   const fetchPosts = async () => {
     try {
@@ -66,39 +63,25 @@ function GroupChat() {
     fetchPosts();
   }, []);
 
-  const handleFileChange = (e) => {
-    const f = e.target.files[0];
-    if (!f) return;
-    setFile(f);
-  };
-
   const handlePost = async (e) => {
     e.preventDefault();
     console.log("📩 handlePost called");
 
-    if (!text && !file) {
-      alert("Kuch likho ya file attach karo 🙂");
+    if (!text.trim()) {
+      alert("Kuch likho 🙂");
       return;
     }
 
     try {
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append("userName", userName);
-      formData.append("headline", headline);
-      formData.append("text", text);
-      if (file) formData.append("file", file);
-
-      const res = await axios.post(`${API_BASE}/posts`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const res = await axios.post(`${API_BASE}/posts`, {
+        userName,
+        headline,
+        text,
       });
 
       console.log("✅ Post created:", res.data);
-
-      setText("");
-      setFile(null);
-      e.target.reset?.();
 
       await fetchPosts();
     } catch (err) {
@@ -154,8 +137,7 @@ function GroupChat() {
   });
 
   // 👇 ye function top par add karo
-const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
-
+  const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
 
   return (
     <div className="linkedin-shell">
@@ -187,10 +169,7 @@ const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
           <div className="card profile-card">
             <div className="cover"></div>
             <div className="profile-main">
-              <div className="avatar-big">
-                {getInitial(userName)}
-
-              </div>
+              <div className="avatar-big">{getInitial(userName)}</div>
               <h3>{userName}</h3>
               <p className="headline">{headline}</p>
             </div>
@@ -235,14 +214,6 @@ const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
               />
 
               <div className="composer-actions">
-                <label className="file-label">
-                  📎 Attach
-                  <input
-                    type="file"
-                    accept="image/*,application/pdf"
-                    onChange={handleFileChange}
-                  />
-                </label>
                 <button type="submit" disabled={loading}>
                   {loading ? "Posting..." : "Post"}
                 </button>
@@ -276,39 +247,6 @@ const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
                 </header>
 
                 {post.text && <p className="post-text">{post.text}</p>}
-
-                {post.fileUrl && post.fileType === "image" && (
-                  <img
-                    src={`http://localhost:5000${post.fileUrl}`}
-                    alt="attachment"
-                    className="post-image"
-                  />
-                )}
-
-                {post.fileUrl && post.fileType === "pdf" && (
-                  <a
-                    href={`http://localhost:5000${post.fileUrl}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="post-file"
-                  >
-                    📄 Open PDF
-                  </a>
-                )}
-
-                {post.fileUrl &&
-                  post.fileType &&
-                  post.fileType !== "image" &&
-                  post.fileType !== "pdf" && (
-                    <a
-                      href={`http://localhost:5000${post.fileUrl}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="post-file"
-                    >
-                      📁 Download file
-                    </a>
-                  )}
 
                 <footer className="post-footer">
                   <button
