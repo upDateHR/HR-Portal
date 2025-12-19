@@ -125,6 +125,21 @@ function GroupChat() {
     }
   };
 
+  const handleDeletePost = async (postId) => {
+    const ok = window.confirm("Are you sure you want to delete this post?");
+    if (!ok) return;
+
+    try {
+      await axios.delete(`${API_BASE}/posts/${postId}`);
+
+      // UI se bhi remove karo (fast UX)
+      setPosts((prev) => prev.filter((p) => p._id !== postId));
+    } catch (err) {
+      console.error("❌ Delete post error:", err);
+      alert("Post delete karte waqt error aaya.");
+    }
+  };
+
   // 🔍 search filtering — sirf searchQuery pe
   const filteredPosts = posts.filter((post) => {
     const q = searchQuery.toLowerCase();
@@ -254,10 +269,19 @@ function GroupChat() {
                     onClick={() => handleToggleLike(post._id)}
                   >
                     {hasUserLiked(post, userName) ? "❤️ Liked" : "❤️ Like"}{" "}
-                    {post.likes && post.likes.length > 0
-                      ? `(${post.likes.length})`
-                      : ""}
+                    {post.likes?.length ? `(${post.likes.length})` : ""}
                   </button>
+
+                  {/* 🗑 DELETE BUTTON */}
+                  {post.userName === userName && (
+                    <button
+                      type="button"
+                      className="delete-btn"
+                      onClick={() => handleDeletePost(post._id)}
+                    >
+                      🗑 Delete
+                    </button>
+                  )}
 
                   <CommentSection
                     postId={post._id}
